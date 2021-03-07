@@ -1,0 +1,6 @@
+.editorconfig
+.gitattributes
+__pycache__
+*.py
+*.bat
+config.js
