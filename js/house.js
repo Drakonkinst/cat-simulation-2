@@ -22,6 +22,7 @@ const House = (() => {
         Notifications.notify("unlocked rooms.");
         self.getRoom("living-room").setUnlocked(true);
         self.getRoom("bathroom").setUnlocked(true);
+        self.setTitle("A Lonely House");
         Game.saveAll();
     }
 
@@ -53,6 +54,10 @@ const House = (() => {
             self.Launch();
             for(let room of this.locations) {
                 roomNames.push(room.id);
+            }
+            
+            if(self.getRoom("living-room").isVisible) {
+                self.setTitle("A Lonely House");
             }
         },
 

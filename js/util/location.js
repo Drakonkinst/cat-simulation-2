@@ -79,6 +79,7 @@ const Area = (() => {
         
         setTitle(title) {
             this.title = title;
+            this.buttonElem.text(title);
         }
         
         addLocation(location) {

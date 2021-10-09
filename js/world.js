@@ -133,6 +133,9 @@ const World = (() => {
     let weatherTask = null;
     let currentDay = 1;
     
+    let isTownUnlocked = false;
+    let isCityUnlocked = true;
+    
     return {
         Init() {
             weatherTask = new Task("weather", World.nextWeather, WEATHER_INTERVAL_MIN, WEATHER_INTERVAL_MAX);
@@ -151,6 +154,9 @@ const World = (() => {
             
         },
         
+        /*
+        day|areasUnlocked[00]|currentWeather
+        */
         saveWorldData() {
             let data = [
                 currentDay, "|",
@@ -206,6 +212,14 @@ const World = (() => {
         
         dream() {
             
+        },
+        
+        isTownUnlocked() {
+            return isTownUnlocked;
+        },
+        
+        isCityUnlocked() {
+            return isCityUnlocked;
         }
     };
 })();
