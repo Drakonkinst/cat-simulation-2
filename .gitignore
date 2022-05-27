@@ -1,6 +1,9 @@
 # Misc
 .DS_Store
 
+# Rollup Source Maps
+*.map
+
 # Logs
 logs
 *.log

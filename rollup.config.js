@@ -1,10 +1,12 @@
 import { terser } from 'rollup-plugin-terser';
 
-const dev = true;
+const DEV = true;
+
 export default {
-    input: 'src/script/main.js',
+    input: 'src/script/game.js',
     output: {
         file: 'docs/main.js',
+        sourcemap: DEV,
         format: 'es'
     },
     plugins: [
