@@ -44,3 +44,7 @@ export function randInt(min, max) {
 export function chooseRandom(arr) {
     return arr[randInt(0, arr.length)];
 }
+
+export function round(value, precision = 2) {
+    return +value.toFixed(precision);
+}

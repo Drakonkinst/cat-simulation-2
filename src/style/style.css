@@ -1,3 +1,75 @@
+/* Base */
+
+html, body {
+    height: 100%;
+}
+
+div {
+    display: block;
+}
+
 body {
-    background-color: blue
+    font-family: "Times New Roman", Times, serif;
+	font-size: 16px;
+	font-weight: normal;
+	line-height: normal;
+	letter-spacing: normal;
+	margin: 0;
+	padding: 0;
+	border: 0
+}
+
+.wrapper {
+	margin: auto;
+	width: 700px;
+	padding: 20px 0 0 220px;
+	position: relative;
+}
+
+::selection {
+	background-color: transparent;
+}
+
+::-moz-selection {
+	background-color: transparent;
+}
+
+/* Layout */
+
+/* Buttons */
+
+.button {
+	position: relative;
+	text-align: center;
+	border: 1px solid black;
+	width: 100px;
+	margin-bottom: 5px;
+	padding: 5px 10px;
+	cursor: pointer;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.button:hover {
+	text-decoration: underline;
+}
+
+div.button.disabled,
+div.button.disabled:hover {
+	cursor: default;
+	border-color: #b2b2b2;
+	color: #b2b2b2;
+	text-decoration: none;
+}
+
+.button .cooldown {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: -1;
+	height: 100%;
+	background-color: #DDDDDD;
 }

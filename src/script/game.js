@@ -1,14 +1,15 @@
 import { Cat } from "./cat.js";
-import { Logger, LoggerLevel } from "./util/logger.js"
-
-export const GameInfo = {
-    version: "alpha 2.000",
-    options: {
-        loggerLevel: LoggerLevel.ALL
-    }
-};
+import { GameInfo } from "./info.js";
+import { Button } from "./util/button.js";
+import { Logger } from "./util/logger.js"
 
 $(function() {
     Logger.setLevel(GameInfo.options.loggerLevel);
-    Logger.info("Hello, world!");
+    new Button({
+        text: "Hello, world!",
+        cooldown: 1000,
+        onClick: function() {
+            Logger.info("Hello, world!");
+        }
+    }).appendTo($(".main"));
 });

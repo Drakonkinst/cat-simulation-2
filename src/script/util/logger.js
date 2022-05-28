@@ -9,7 +9,7 @@ export const LoggerLevel = {
     NONE: 0
 };
 
-const Logger = {
+export const Logger = {
     setLevel(value) {
         level = value;
     },
@@ -44,4 +44,3 @@ const Logger = {
         }
     }
 };
-export default Logger;
