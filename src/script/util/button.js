@@ -21,17 +21,7 @@ function createButtonElem(button, text) {
     let elem = $("<div>")
         .addClass("button")
         .text(text)
-        .on("click", function() {
-            if(!button.element.hasClass("disabled")) {
-                // Button is not disabled, click
-                let result = button.onClick();
-                // If result is null or returns true, begin the button cooldown
-                if(result == null || result) {
-                    button.startCooldown();
-                }
-            }
-        });
-    
+        .on("click", () => button.click());
     // Add cooldown slider
     $("<div>").addClass("cooldown").appendTo(elem);
     return elem;
@@ -157,6 +147,17 @@ export class Button {
         
         this.onCooldown = true;
         this.setDisabled(true);
+    }
+    
+    click() {
+        if(!this.element.hasClass("disabled")) {
+            // Button is not disabled, run callback
+            let result = this.onClick();
+            // If result is null or returns true, begin the button cooldown
+            if(result == null || result) {
+                this.startCooldown();
+            }
+        }
     }
     
     finish() {
