@@ -4,6 +4,7 @@ import { Button } from "./util/button.js";
 import { Init as InitEvents, randomEvent } from "./util/events.js";
 import { Logger } from "./util/logger.js"
 import { Init as InitNotifications, notify, quickNotify } from "./util/notifications.js";
+import { Tooltip } from "./util/tooltip.js";
 
 const GameState = {
     keyLock: false,
@@ -15,8 +16,10 @@ $(function() {
     InitNotifications(GameState);
     InitEvents(GameState);
     
+    // TODO: improve CSS + add dark mode
     new Button({
         text: "Hello, world!",
+        tooltip: new Tooltip().addCost("soul", 1).addText("something's out there."),
         cooldown: 1000,
         onClick: function() {
             Logger.info("Hello, world!");

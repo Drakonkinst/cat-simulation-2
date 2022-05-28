@@ -5,7 +5,7 @@
 import { Button } from "./button.js";
 import { disableSelection, enableSelection } from "./input.js";
 import { Logger } from "./logger.js";
-import { notify } from "./notifications.js";
+import { lint, notify } from "./notifications.js";
 import { Task } from "./task.js";
 import { chooseWeightedArr, chooseWeightedMap } from "./utils.js";
 
@@ -58,7 +58,7 @@ export function Init(gameState) {
                         "the streets are silent."
                     ],
                     onLoad: function () {
-                        $SM.addItem("bread", 5);
+                        //$SM.addItem("bread", 5);
                     },
                     buttons: {
                         "leave": {
@@ -73,7 +73,7 @@ export function Init(gameState) {
                         "the streets are silent."
                     ],
                     onLoad: function () {
-                        $SM.addItem("cat treat", 3);
+                        //$SM.addItem("cat treat", 3);
                     },
                     buttons: {
                         "leave": {
@@ -114,8 +114,6 @@ export function randomEvent() {
         if(possibleEvents.length > 0) {
             // Choose random event from possibilities
             let chosenEvent = chooseWeightedArr(possibleEvents);
-            Logger.fine("Chose event:");
-            Logger.fine(chosenEvent);
             startEvent(chosenEvent)
         } else {
             // No event found, set shorter timeout for next check
@@ -330,6 +328,7 @@ function buttonClick(button) {
                     let resultElement = getEventPanel().find(".input-result");
                     if(resultElement.css("opacity") == 0.0) {
                         // Print as error message
+                        result = lint(result);
                         resultElement.text(result).css("opacity", 1.0).animate({"opacity": 0.0}, ERROR_MSG_FADE, "linear");
                     }
                 }

@@ -41,11 +41,16 @@ export function Init(gameState) {
     quickNotifyElem = $("<div>").addClass("quick-notify").appendTo(".wrapper");
 }
 
-export function notify(message = "", areaId = null, noQueue) {
-    if(message.length > 0 && !endsWithPunctuation(message)) {
-        Logger.warn("Message " + message + " does not end with punctuation");
-        message += ".";
+export function lint(text) {
+    if(text.length > 0 && !endsWithPunctuation(text)) {
+        Logger.warn("Message " + text + " does not end with punctuation");
+        text += ".";
     }
+    return text;
+}
+
+export function notify(message = "", areaId = null, noQueue) {
+    message = lint(message);
 
     if(areaId != null && GameState.id != areaId) {
         if(!noQueue) {
@@ -73,10 +78,7 @@ export function printQueue(areaId) {
 }
 
 export function quickNotify(message = "") {
-    if(message.length > 0 && !endsWithPunctuation(message)) {
-        Logger.warn("Message " + message + " does not end with punctuation");
-        message += ".";
-    }
+    message = lint(message);
     quickNotifyElem
         .stop()
         .text(message)

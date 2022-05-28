@@ -69,7 +69,6 @@ export function chooseWeightedMap(map) {
 }
 
 export function chooseWeightedArr(arr, defaultWeight = 1, weightKey = "weight") {
-    Logger.fine(arr);
     let maxWeight = 0;
     for(let item of arr) {
         if(item.hasOwnProperty(weightKey)) {
@@ -78,12 +77,10 @@ export function chooseWeightedArr(arr, defaultWeight = 1, weightKey = "weight") 
             maxWeight += defaultWeight;
         }
     }
-    Logger.fine("Max weight: " + maxWeight);
     let targetWeight = randNum(0, maxWeight);
     let currWeight = 0;
     let index = 0;
     while(currWeight < targetWeight) {
-        Logger.fine("Curr weight: " + currWeight + " target: " + targetWeight);
         let item = arr[index++];
         if(item.hasOwnProperty(weightKey)) {
             currWeight += item[weightKey];
@@ -91,8 +88,6 @@ export function chooseWeightedArr(arr, defaultWeight = 1, weightKey = "weight") 
             currWeight += defaultWeight;
         }
     }
-    Logger.fine("index: " + index);
-    Logger.fine(arr[index - 1]);
     return arr[index - 1];
 }
 
