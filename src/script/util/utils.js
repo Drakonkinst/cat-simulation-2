@@ -45,6 +45,6 @@ export function chooseRandom(arr) {
     return arr[randInt(0, arr.length)];
 }
 
-export function round(value, precision = 2) {
+export function round(value, precision = 0) {
     return +value.toFixed(precision);
 }

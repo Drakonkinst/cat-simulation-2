@@ -5,6 +5,7 @@ export const GameInfo = {
     options: {
         instantButtons: false,
         fasterButtons: false,
+        fasterTasks: false,
         loggerLevel: LoggerLevel.ALL
     }
 };

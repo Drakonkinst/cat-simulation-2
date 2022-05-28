@@ -2,10 +2,16 @@ import { GameInfo } from "../info.js";
 import { Logger } from "./logger.js";
 import { round } from "./utils.js";
 
+/**
+ * Button class that represents a clickable button in the window.
+ * Buttons can have text inside of them, a cooldown before it can be
+ * clicked again, an action when it is clicked, and an action after the
+ * button has cooled down.
+ */
+
 const FAST_BUTTONS_MULTIPLIER = 10.0;
 const MAX_SKIP_COOLDOWN = 2;
 const MILLISECONDS_TO_SECONDS = 0.001;
-const SECONDS_TO_MILLISECONDS = 1000;
 const SAVE_COOLDOWN_INTERVAL = 500;
 
 const savedCooldowns = {};
@@ -16,10 +22,13 @@ function createButtonElem(button, text) {
         .addClass("button")
         .text(text)
         .on("click", function() {
-            let result = button.onClick();
-            // If result is null or returns true, begin the button cooldown
-            if(result == null || result) {
-                button.startCooldown();
+            if(!button.element.hasClass("disabled")) {
+                // Button is not disabled, click
+                let result = button.onClick();
+                // If result is null or returns true, begin the button cooldown
+                if(result == null || result) {
+                    button.startCooldown();
+                }
             }
         });
     
@@ -142,7 +151,7 @@ export class Button {
                     clearInterval(interval);
                     return;
                 }
-                savedCooldowns[this.id] = round(savedCooldowns[this.id] - SAVE_COOLDOWN_INTERVAL * MILLISECONDS_TO_SECONDS)
+                savedCooldowns[this.id] = round(savedCooldowns[this.id] - SAVE_COOLDOWN_INTERVAL * MILLISECONDS_TO_SECONDS, 2)
             }, SAVE_COOLDOWN_INTERVAL);
         }
         
