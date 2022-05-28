@@ -1,0 +1,47 @@
+.tooltip {
+	display: none;
+	text-align: left;
+	padding: 2px 5px;
+	border: 1px solid black;
+	position: absolute;
+	box-shadow: -1px 3px 2px #666;
+	background: white;
+	z-index: 999;
+}
+
+.tooltip.bottom {
+	top: 30px;
+}
+
+.tooltip.right {
+	right: 0px;
+}
+
+.tooltip.left {
+	left: 0px;
+}
+
+.tooltip.top {
+	bottom: 30px;
+}
+
+.button .tooltip {
+	width: 100px;
+	font-weight: 400;
+}
+
+*:hover > .tooltip {
+	display: block;
+}
+
+.tooltip:hover {
+	display: none !important;
+}
+
+.disabled:hover > .tooltip {
+	display: none;
+}
+
+.event .button.disabled:hover > div.tooltip {
+	display: block;
+}

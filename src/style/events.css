@@ -1,0 +1,115 @@
+.event-panel {
+	background: none repeat scroll 0 0 white;
+	border: 2px solid transparent;
+	left: 250px;
+	padding: 20px;
+	position: absolute;
+	top: 90px;
+	width: 335px;
+	z-index: 20;
+}
+
+body.noMask .event-panel {
+	background-color: black;
+}
+
+.event-panel:before {
+	background-color:white;
+	opacity: 0.6;
+	content: " ";
+	height: 700px;
+	left: -252px;
+	position: absolute;
+	top: -75px;
+	width: 920px;
+	z-index: -2;
+}
+
+body.noMask .event-panel:before {
+	opacity: 0;
+}
+
+.event-panel:after {
+	position: absolute;
+	top: -2px;
+	left: -2px;
+	width: 100%;
+	height: 100%;
+	content: " ";
+	border: 2px solid black;
+	box-shadow: 5px 5px 5px #666666;
+	z-index: -2;
+}
+
+body.noMask .event-panel:after {
+	border-color: white;
+}
+
+.event-panel .button {
+	float:left;
+	margin-right: 20px;
+}
+
+body.noMask .event-panel .button {
+	border-color: white;
+	color: white;
+}
+
+.event-title {
+	display: inline-block;
+	font-weight: bold;
+	position: absolute;
+	top: -12px;
+}
+
+body.noMask .event-title {
+	color: white;
+}
+
+.event-title:after {
+	background-color: white;
+	bottom: 32%;
+	content: " ";
+	height: 5px;
+	left: 0;
+	position: absolute;
+	width: 100%;
+	z-index: -1;
+}
+
+body.noMask .event-title:after {
+	background-color: black;
+}
+
+.event-description {
+	position: relative;
+	min-height: 100px;
+}
+
+.event-description input {
+	width: 60%;
+	margin: 10px 0px 0px 20px;
+	padding: 3px;
+	font-family: "Times New Roman", Times, serif;
+	font-size: 16px;
+	/*height: 225px;*/
+}
+
+.event-description .input-result {
+	margin: 5px 0px 15px 23px;
+	height: 16px;
+	font-size: 16px;
+}
+
+body.noMask .event-description {
+	color: white;
+}
+
+.event-description > div {
+	padding-bottom: 20px;
+}
+
+.event-buttons > .button {
+	margin: 0 5px 5px;
+	margin-right: 15px;
+}

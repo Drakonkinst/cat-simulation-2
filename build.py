@@ -10,7 +10,15 @@ def minify_js():
 
 def minify_css():
 # Minify CSS
-    files = ["normalize.css", "style.css"]
+    files = [
+        "normalize.css",
+        "style.css",
+        "buttons.css",
+        "notifications.css",
+        "tooltips.css",
+        "equipment.css",
+        "events.css"
+    ]
     css_text = ""
     for filename in files:
         filepath = os.path.join("./src/style", filename)
