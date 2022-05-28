@@ -8,6 +8,7 @@ import { Logger } from "./logger.js";
 import { lint, notify } from "./notifications.js";
 import { Task } from "./task.js";
 import { chooseWeightedArr, chooseWeightedMap } from "./utils.js";
+import * as $SM from "./../state.js"
 
 const EVENT_INTERVAL_MIN = 3;
 const EVENT_INTERVAL_MAX = 6;
@@ -55,7 +56,7 @@ export function Init() {
                         "the streets are silent."
                     ],
                     onLoad: function () {
-                        //$SM.addItem("bread", 5);
+                        $SM.addItem("bread", 5);
                     },
                     buttons: {
                         "leave": {
@@ -70,7 +71,7 @@ export function Init() {
                         "the streets are silent."
                     ],
                     onLoad: function () {
-                        //$SM.addItem("cat treat", 3);
+                        $SM.addItem("cat treat", 3);
                     },
                     buttons: {
                         "leave": {

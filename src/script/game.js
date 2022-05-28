@@ -5,17 +5,27 @@ import { Init as InitEvents, randomEvent } from "./util/events.js";
 import { Logger } from "./util/logger.js"
 import { Init as InitNotifications, notify, quickNotify } from "./util/notifications.js";
 import { Tooltip } from "./util/tooltip.js";
+import * as $SM from "./state.js";
+
+function InitState() {
+    $SM.set("world.day", 1);
+}
+
+// Debug function
+window.getState = function() {
+    return $SM.getState();
+}
 
 $(function() {
     Logger.setLevel(GameInfo.options.loggerLevel);
     InitNotifications();
     InitEvents();
-    
-    // TODO: improve CSS + add dark mode
+    InitState();
     // TODO: Tab navigation and rooms
-    // TODO: Equipment and state manager
-    // TODO: Saving?
+    // TODO: Equipment visualization
+    // TODO: Saving? What parts should be saved?
     // TODO: Footer
+    // TODO: Move all non-Tester code to a launch function
     new Button({
         text: "Hello, world!",
         tooltip: new Tooltip().addCost("soul", 1).addText("something's out there."),

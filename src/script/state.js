@@ -36,6 +36,7 @@ function createState(stateName, value) {
     next = path[i];
     let existed = obj.hasOwnProperty(next);
     obj[next] = value;
+    Logger.finer("SET " + stateName + " = " + value);
     return !existed;
 }
 
@@ -46,7 +47,7 @@ export function get(stateName, numericOnly) {
     
     for(let i = 0; i < path.length; ++i) {
         next = path[i];
-        if(obj.hasOwnProperty(next)) {
+        if(typeof obj !== "object" || obj.hasOwnProperty(next)) {
             return numericOnly ? 0 : null;
         }
         obj = obj[next];
@@ -66,6 +67,11 @@ export function add(stateName, value) {
         return;
     }
     set(stateName, oldValue + value);
+}
+
+// Debug function, do NOT use to manipulate state directly
+export function getState() {
+    return GameState;
 }
 
 /* Inventory */
