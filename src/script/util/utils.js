@@ -1,5 +1,8 @@
 
 /* Probability */
+
+import { Logger } from "./logger";
+
 /**
  * Returns a boolean given the chance for the boolean to be true.
  * 
@@ -43,6 +46,54 @@ export function randInt(min, max) {
  */
 export function chooseRandom(arr) {
     return arr[randInt(0, arr.length)];
+}
+
+export function chooseWeightedMap(map) {
+    let maxWeight = 0;
+    for(let k in map) {
+        if(map.hasOwnProperty(k)) {
+            maxWeight += map[k];
+        }
+    }
+    let targetWeight = randNum(0, maxWeight);
+    let currWeight = 0;
+    for(let k in map) {
+        if(map.hasOwnProperty(k)) {
+            currWeight += map[k];
+            if(currWeight >= targetWeight) {
+                return k;
+            }
+        }
+    }
+    return null;
+}
+
+export function chooseWeightedArr(arr, defaultWeight = 1, weightKey = "weight") {
+    Logger.fine(arr);
+    let maxWeight = 0;
+    for(let item of arr) {
+        if(item.hasOwnProperty(weightKey)) {
+            maxWeight += item[weightKey];
+        } else {
+            maxWeight += defaultWeight;
+        }
+    }
+    Logger.fine("Max weight: " + maxWeight);
+    let targetWeight = randNum(0, maxWeight);
+    let currWeight = 0;
+    let index = 0;
+    while(currWeight < targetWeight) {
+        Logger.fine("Curr weight: " + currWeight + " target: " + targetWeight);
+        let item = arr[index++];
+        if(item.hasOwnProperty(weightKey)) {
+            currWeight += item[weightKey];
+        } else {
+            currWeight += defaultWeight;
+        }
+    }
+    Logger.fine("index: " + index);
+    Logger.fine(arr[index - 1]);
+    return arr[index - 1];
 }
 
 export function round(value, precision = 0) {

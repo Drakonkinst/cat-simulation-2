@@ -57,7 +57,7 @@ export class Button {
         }
         
         if(this.id != null) {
-            this.element.addClass("button_" + button.id);
+            this.element.addClass("button_" + this.id);
         }
         
         if(width != null) {

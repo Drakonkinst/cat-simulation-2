@@ -34,62 +34,60 @@ function clearHidden() {
     });
 }
 
-export const Notifications = {
-    Init(gameState) {
-        GameState = gameState;
-        notificationsElem = $("<div>").addClass("notifications").appendTo(".wrapper");
-        gradientElem = $("<div>").addClass("notify-gradient").appendTo(notificationsElem);
-        quickNotifyElem = $("<div>").addClass("quick-notify").appendTo(".wrapper");
-    },
-    
-    notify(message = "", areaId = null, noQueue) {
-        if(message.length > 0 && !endsWithPunctuation(message)) {
-            Logger.warn("Message " + message + " does not end with punctuation");
-            message += ".";
-        }
+export function Init(gameState) {
+    GameState = gameState;
+    notificationsElem = $("<div>").addClass("notifications").appendTo(".wrapper");
+    gradientElem = $("<div>").addClass("notify-gradient").appendTo(notificationsElem);
+    quickNotifyElem = $("<div>").addClass("quick-notify").appendTo(".wrapper");
+}
 
-        if(areaId != null && GameState.id != areaId) {
-            if(!noQueue) {
-                // Create key in notifyQueue if it does not exist
-                if(!notifyQueue.hasOwnProperty(areaId)) {
-                    notifyQueue[areaId] = [];
-                }
-                // Add message to notifyQueue
-                notifyQueue[areaId].push(message);
-            }
-        } else {
-            // areaId is current or not specified, print message directly
-            printMessage(message);
-        }
-    },
-    
-    printQueue(areaId) {
-        if(!notifyQueue.hasOwnProperty(areaId)) {
-            return;
-        }
-
-        while(notifyQueue[areaId].length) {
-            Notifications.printMessage(notifyQueue[areaId].shift());
-        }
-    },
-
-    quickNotify(message = "") {
-        if(message.length > 0 && !endsWithPunctuation(message)) {
-            Logger.warn("Message " + message + " does not end with punctuation");
-            message += ".";
-        }
-        quickNotifyElem
-            .stop()
-            .text(message)
-            .css("opacity", 1)
-            .animate({ "opacity": 0 }, MESSAGE_FADE_OUT, "linear");
-    },
-
-    clearAll(duration = MESSAGE_FADE_OUT) {
-        $(".notification")
-            .stop()
-            .animate({ "opacity": 0 }, duration, "linear", function () {
-                $(this).remove();
-            });
+export function notify(message = "", areaId = null, noQueue) {
+    if(message.length > 0 && !endsWithPunctuation(message)) {
+        Logger.warn("Message " + message + " does not end with punctuation");
+        message += ".";
     }
+
+    if(areaId != null && GameState.id != areaId) {
+        if(!noQueue) {
+            // Create key in notifyQueue if it does not exist
+            if(!notifyQueue.hasOwnProperty(areaId)) {
+                notifyQueue[areaId] = [];
+            }
+            // Add message to notifyQueue
+            notifyQueue[areaId].push(message);
+        }
+    } else {
+        // areaId is current or not specified, print message directly
+        printMessage(message);
+    }
+}
+
+export function printQueue(areaId) {
+    if(!notifyQueue.hasOwnProperty(areaId)) {
+        return;
+    }
+
+    while(notifyQueue[areaId].length) {
+        Notifications.printMessage(notifyQueue[areaId].shift());
+    }
+}
+
+export function quickNotify(message = "") {
+    if(message.length > 0 && !endsWithPunctuation(message)) {
+        Logger.warn("Message " + message + " does not end with punctuation");
+        message += ".";
+    }
+    quickNotifyElem
+        .stop()
+        .text(message)
+        .css("opacity", 1)
+        .animate({ "opacity": 0 }, MESSAGE_FADE_OUT, "linear");
+}
+
+export function clearAll(duration = MESSAGE_FADE_OUT) {
+    $(".notification")
+        .stop()
+        .animate({ "opacity": 0 }, duration, "linear", function () {
+            $(this).remove();
+        });
 }

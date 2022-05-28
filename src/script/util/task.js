@@ -1,6 +1,6 @@
 import { GameInfo } from "../info.js";
 import { Logger } from "./logger.js";
-import { round } from "./utils.js";
+import { randNum, round } from "./utils.js";
 
 /**
  * Task class that builds a reschedulable Task that can have a random interval.
@@ -23,7 +23,7 @@ export class Task {
     }
 
     scheduleNext(scale = 1) {
-        let interval = Utils.randNum(this.minInterval, this.maxInterval) * scale;
+        let interval = randNum(this.minInterval, this.maxInterval) * scale;
 
         if(GameInfo.options.fasterTasks) {
             interval *= FAST_TASKS_MULTIPLIER;
