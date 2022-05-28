@@ -1,13 +1,16 @@
 .equipment-item {
 	position: relative;
 }
+
 .row {
 	position: relative;
 }
+
 .row_key {
 	clear: both;
 	float: left;
 }
+
 .row_val {
 	float: right;
 }

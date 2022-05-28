@@ -6,6 +6,8 @@
 	margin-bottom: 5px;
 	padding: 5px 10px;
 	cursor: pointer;
+	
+	/* Prevent selection */
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
@@ -13,10 +15,12 @@
     user-select: none;
 }
 
+/* Underline when hovered */
 .button:hover {
 	text-decoration: underline;
 }
 
+/* No cursor change or underline when disabled */
 div.button.disabled,
 div.button.disabled:hover {
 	cursor: default;
@@ -25,6 +29,7 @@ div.button.disabled:hover {
 	text-decoration: none;
 }
 
+/* Cooldown meter */
 .button .cooldown {
 	position: absolute;
 	top: 0px;
@@ -32,4 +37,19 @@ div.button.disabled:hover {
 	z-index: -1;
 	height: 100%;
 	background-color: #DDDDDD;
+}
+
+/* Dark Mode */
+
+.dark div.button {
+	border: 1px solid #eeeeee;
+}
+
+.dark div.button .cooldown {
+	background-color: #444444;
+}
+
+.dark div.button.disabled, .dark div.button.disabled:hover {
+	color: #444444;
+	border-color: #444444;
 }

@@ -45,3 +45,11 @@
 .event .button.disabled:hover > div.tooltip {
 	display: block;
 }
+
+/* Dark Mode */
+
+.dark div.tooltip {
+	background-color: #272823;
+	border: 1px solid #eeeeee;
+	box-shadow: -1px 3px 2px #111111;
+}

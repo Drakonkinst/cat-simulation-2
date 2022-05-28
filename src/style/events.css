@@ -1,5 +1,5 @@
 .event-panel {
-	background: none repeat scroll 0 0 white;
+	background: none repeat scroll 0 0 #ffffff;
 	border: 2px solid transparent;
 	left: 250px;
 	padding: 20px;
@@ -9,6 +9,7 @@
 	z-index: 20;
 }
 
+/* TODO: What is noMask? Why does it not follow naming conventions? */
 body.noMask .event-panel {
 	background-color: black;
 }
@@ -112,4 +113,43 @@ body.noMask .event-description {
 .event-buttons > .button {
 	margin: 0 5px 5px;
 	margin-right: 15px;
+}
+
+/* Dark Mode */
+
+.dark .event-panel {
+	background: none repeat scroll 0 0 #666666
+}
+
+.dark .event-panel:after {
+	border: 2px solid #aaaaaa;
+}
+
+.dark .event-panel:before {
+	background-color: #272823;
+}
+
+.dark .event-title:after {
+	background-color: #272823;
+}
+
+.dark.noMask .event-title {
+	background-color: #aaaaaa;
+}
+
+.dark.noMask .event-title:after {
+	background-color: #aaaaaa;
+}
+
+.dark.noMask .event-panel {
+	background-color: #aaaaaa;
+}
+
+.dark.noMask .event-description {
+	color: #272823;
+}
+
+.dark.noMask .event-buttons > .button {
+	border: 1px solid #272823;
+	color: #272823;
 }

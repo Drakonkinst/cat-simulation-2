@@ -15,15 +15,9 @@
 	height: 100%;
 	width: 100%;
 	background-color: white;
-	background: -webkit-linear-gradient(
-		rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%
-	);
-	background: linear-gradient(
-		rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%
-	);
-	filter: alpha(
-		Opacity=0, FinishOpacity=100, Style=1, StartX=0, StartY=0, FinishX=0, FinishY=500
-	);
+	background: -webkit-linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+	background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+	filter: alpha(Opacity=0, FinishOpacity=100, Style=1, StartX=0, StartY=0, FinishX=0, FinishY=500);
 }
 
 .notification {
@@ -32,8 +26,21 @@
 
 .quick-notify {
 	position: absolute;
-    top: 20px;
-    right: 0px;
+	top: 20px;
+	right: 0px;
 	background: white;
 	opacity: 0;
+}
+
+/* Dark Mode */
+
+.dark div.notify-gradient {
+	background-color: #272823;
+	background: -webkit-linear-gradient(rgba(39, 40, 35, 0) 0%, rgba(39, 40, 35, 1) 100%);
+	background: linear-gradient(rgba(39, 40, 35, 0) 0%, rgba(39, 40, 35, 1) 100%);
+	filter: alpha(Opacity=0, FinishOpacity=100, Style=1, StartX=0, StartY=0, FinishX=0, FinishY=500);
+}
+
+.dark div.quick-notify {
+	background-color: #272823;
 }

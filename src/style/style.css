@@ -31,3 +31,10 @@ body {
 ::-moz-selection {
 	background-color: transparent;
 }
+
+/* Dark Mode */
+
+.dark {
+    background-color: #272823;
+    color: #eeeeee;
+}
