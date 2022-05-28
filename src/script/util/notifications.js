@@ -1,4 +1,5 @@
-import { Logger } from "./logger";
+import * as $SM from "../state.js";
+import { Logger } from "./logger.js";
 
 const MESSAGE_FADE_IN = 500;
 const MESSAGE_FADE_OUT = 3000;
@@ -7,7 +8,6 @@ let notifyQueue = {};
 let notificationsElem = null;
 let gradientElem = null;
 let quickNotifyElem = null;
-let GameState = null;
 
 function endsWithPunctuation(str) {
     return ".!?".indexOf(str.slice(-1)) > -1;
@@ -34,8 +34,7 @@ function clearHidden() {
     });
 }
 
-export function Init(gameState) {
-    GameState = gameState;
+export function Init() {
     notificationsElem = $("<div>").addClass("notifications").appendTo(".wrapper");
     gradientElem = $("<div>").addClass("notify-gradient").appendTo(notificationsElem);
     quickNotifyElem = $("<div>").addClass("quick-notify").appendTo(".wrapper");
@@ -52,7 +51,7 @@ export function lint(text) {
 export function notify(message = "", areaId = null, noQueue) {
     message = lint(message);
 
-    if(areaId != null && GameState.id != areaId) {
+    if(areaId != null && $SM.get("currentArea") != areaId) {
         if(!noQueue) {
             // Create key in notifyQueue if it does not exist
             if(!notifyQueue.hasOwnProperty(areaId)) {

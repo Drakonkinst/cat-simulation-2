@@ -3,7 +3,7 @@
  */
 
 import { Button } from "./button.js";
-import { disableSelection, enableSelection } from "./input.js";
+import { disableSelection, enableSelection, InputState } from "./input.js";
 import { Logger } from "./logger.js";
 import { lint, notify } from "./notifications.js";
 import { Task } from "./task.js";
@@ -21,11 +21,8 @@ let blinkInterval = null;
 let task = null;
 let eventPool = [];
 let eventStack = [];
-let GameState = null;
 
-export function Init(gameState) {
-    GameState = gameState;
-
+export function Init() {
     // TODO: Create event pool
     eventPool.push(
         {   //Noises Outside - gain stuff
@@ -39,7 +36,7 @@ export function Init(gameState) {
                         "knocking sounds can be heard through the door.",
                         "someone's out there."
                     ],
-                    notification: "someone's knocking outside",
+                    notification: "someone's knocking outside.",
                     blink: true,
                     buttons: {
                         "investigate": {
@@ -127,8 +124,8 @@ export function randomEvent() {
 }
 
 function startEvent(event) {
-    GameState.keyLock = true;
-    GameState.navigation = false;
+    InputState.keyLock = true;
+    InputState.navigation = false;
     eventStack.push(event);
 
     // Create event panel
@@ -190,8 +187,8 @@ function endEvent() {
             }
             
             // Re-enable keyboard input
-            GameState.keyLock = false;
-            GameState.navigation = true;
+            InputState.keyLock = false;
+            InputState.navigation = true;
             
             // Force refocus on body for IE
             $("body").trigger("focus");

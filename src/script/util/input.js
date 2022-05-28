@@ -6,6 +6,11 @@ function eventPassThrough() {
     return true;
 }
 
+export const InputState = {
+    keyLock: false,
+    navigation: true
+};
+
 export function enableSelection() {
     document.onselectstart = eventNullifier;    // IE support
     document.onmousedown = eventNullifier;      // Everything else
