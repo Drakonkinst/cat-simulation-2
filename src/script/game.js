@@ -9,11 +9,13 @@ import { Init as InitTown } from "./town.js"
 import { Init as InitAreaContainer, travelTo, updateSliderWidth } from "./area.js"
 import { Tooltip } from "./util/tooltip.js";
 import * as $SM from "./state.js";
-import { setDark } from "./util/input.js";
+import { InputState, setAreaDark, setDark } from "./util/input.js";
 
 function InitState() {
     $SM.set("world.day", 1);
     $SM.set("options.lights", 0);
+    $SM.set("progress.start", 0);
+    $SM.set("progress.unlocked.town", false);
 }
 
 function InitAreas() {
@@ -58,7 +60,7 @@ function showOptions() {
         scenes: {
             "start": () => {
                 $("div.event-title").text("Options");
-                let lightMode = $SM.get("options.lights", true);
+                let lightMode = $SM.get("options.lights", 0);
                 return {
                     text: [
                         "set to heart's desire."
@@ -150,8 +152,7 @@ function setLightMode(index) {
     } else if(index == 1) {
         setDark(true);
     } else if(index == 2) {
-        // TODO: (Later) adaptive lighting
-        setDark(false);
+        setAreaDark(InputState.darkArea);
     }
 }
 
@@ -161,7 +162,7 @@ function Init() {
     InitState();
     InitFooter();
     InitNotifications();
-    InitEvents();
+    //InitEvents();
     InitAreas();
 
     // TODO: Equipment visualization (based on room)

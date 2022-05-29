@@ -1,3 +1,5 @@
+import * as $SM from "./../state.js";
+
 function eventNullifier(e) {
     return $(e.target).hasClass("menu-btn");
 }
@@ -11,6 +13,7 @@ export const InputState = {
     keyLock: false,
     navigation: true,
     darkMode: false,
+    darkArea: false,
     currentArea: null
 };
 
@@ -31,5 +34,16 @@ export function setDark(flag) {
     } else {
         InputState.darkMode = false;
         $("body").removeClass("dark");
+    }
+}
+
+export function setAreaDark(isDark = null) {
+    InputState.darkArea = isDark;
+    if($SM.get("options.lights") == 2) {
+        if(isDark) {
+            setDark(true);
+        } else {
+            setDark(false);
+        }
     }
 }

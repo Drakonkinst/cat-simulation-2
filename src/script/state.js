@@ -40,7 +40,29 @@ function createState(stateName, value) {
     return !existed;
 }
 
-export function get(stateName, numericOnly) {
+export function remove(stateName) {
+    let path = getPath(stateName);
+    let obj = GameState;
+    let next = null;
+    let i;
+
+    for(i = 0; i < path.length - 1; ++i) {
+        next = path[i];
+        if(!obj.hasOwnProperty(next)) {
+            return false;
+        }
+        obj = obj[next];
+    }
+
+    // Set final property in path to value
+    next = path[i];
+    let existed = obj.hasOwnProperty(next);
+    delete obj[next];
+    Logger.finer("REMOVE " + stateName);
+    return existed;
+}
+
+export function get(stateName, defaultValue = null) {
     let path = getPath(stateName);
     let obj = GameState;
     let next = null;
@@ -48,7 +70,7 @@ export function get(stateName, numericOnly) {
     for(let i = 0; i < path.length; ++i) {
         next = path[i];
         if(typeof obj === "object" && !obj.hasOwnProperty(next)) {
-            return numericOnly ? 0 : null;
+            return defaultValue;
         }
         obj = obj[next];
     }
@@ -61,7 +83,7 @@ export function set(stateName, value) {
 }
 
 export function add(stateName, value) {
-    let oldValue = get(stateName, true);
+    let oldValue = get(stateName, 0);
     if(isNaN(oldValue)) {
         Logger.severe("Tried to add to \"" + stateName + "\" which is not a number.");
         return;
@@ -83,7 +105,7 @@ export function addItem(name, value) {
 }
 
 export function hasItem(name, count = 1) {
-    return get("player.inventory[" + name + "]", true) >= count;
+    return get("player.inventory[" + name + "]", 0) >= count;
 }
 
 /* Cats */
