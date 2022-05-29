@@ -101,9 +101,17 @@ export class Area {
         }
     }
     
+    getLocation(index) {
+        if(index < 0 || index >= this.locations.length) {
+            return null;
+        }
+        return this.locations[index];
+    }
+    
     goToLocation(index) {
         if(index < 0 || index >= this.locations.length) {
             Logger.warn("Tried to go to invalid location index " + index);
+            return;
         }
 
         if(this.currentIndex == index) {

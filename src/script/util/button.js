@@ -52,9 +52,7 @@ export class Button {
             Logger.warn("Button with no ID cannot save cooldown");
         }
         
-        if(tooltip != null && tooltip.exists()) {
-            tooltip.appendTo(this.element);
-        }
+        this.setTooltip(tooltip);
         
         if(this.id != null) {
             this.element.addClass("button_" + this.id);
@@ -83,10 +81,24 @@ export class Button {
     
     setText() {
         this.element.text(text);
+        return this;
+    }
+    
+    setTooltip(tooltip) {
+        if(this.tooltip != null) {
+            this.element.removeChild(this.tooltip.element);
+            this.tooltip = null;
+        }
+        if(tooltip != null && tooltip.exists()) {
+            this.tooltip = tooltip;
+            this.tooltip.appendTo(this.element);
+        }
+        return this;
     }
     
     setCooldown(cooldown) {
         this.cooldown = cooldown;
+        return this;
     }
     
     appendTo(parent) {
@@ -175,5 +187,6 @@ export class Button {
         } else if(flag) {
             this.element.addClass("disabled");
         }
+        return this;
     }
 }

@@ -1,6 +1,11 @@
-import { Logger } from "./util/logger";
+import { GameInfo } from "./info.js";
+import { Logger } from "./util/logger.js";
+import { quickNotify } from "./util/notifications.js";
 
-const GameState = {};
+const AUTOSAVE_INTERVAL = 60000;
+
+let GameState = {};
+let needsSave = false;
 
 /* General State Manipulation */
 
@@ -36,8 +41,29 @@ function createState(stateName, value) {
     next = path[i];
     let existed = obj.hasOwnProperty(next);
     obj[next] = value;
+    needsSave = true;
     Logger.finer("SET " + stateName + " = " + value);
     return !existed;
+}
+
+export function startAutoSave() {
+    setInterval(save, AUTOSAVE_INTERVAL);
+}
+
+export function save(force = false) {
+    if(needsSave || force) {
+        localStorage.setItem(GameInfo.saveKey, JSON.stringify(GameState));
+        needsSave = false;
+        quickNotify("saved.");
+        Logger.finer("Saved.");
+    }
+}
+
+export function load(state) {
+    GameState = state;
+    save();
+    Logger.finer("Loaded state.");
+    Logger.finer(GameState);
 }
 
 export function remove(stateName) {
@@ -56,10 +82,13 @@ export function remove(stateName) {
 
     // Set final property in path to value
     next = path[i];
-    let existed = obj.hasOwnProperty(next);
-    delete obj[next];
-    Logger.finer("REMOVE " + stateName);
-    return existed;
+    let exists = obj.hasOwnProperty(next);
+    if(exists) {
+        delete obj[next];
+        stateChanged = true;
+        Logger.finer("REMOVE " + stateName);
+    }
+    return exists;
 }
 
 export function get(stateName, defaultValue = null) {

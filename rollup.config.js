@@ -9,6 +9,11 @@ export default {
         sourcemap: DEV,
         format: 'es'
     },
+    // Suppress circular dependency warnings
+    onwarn(warning, warn) {
+        if(warning.code === 'CIRCULAR_DEPENDENCY') return
+        warn(warning)
+    },
     plugins: [
         terser({
             ecma: 2018,

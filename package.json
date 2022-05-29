@@ -20,7 +20,8 @@
   "homepage": "https://github.com/Drakonkinst/cat-simulation-2#readme",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "python3 build.py"
+    "build": "python3 build.py",
+    "metrics": "echo 'JavaScript:' && find ./src/script -name '*.js' | xargs wc -l | sort -nr && echo 'CSS:' && find ./src/style -name '*.css' | xargs wc -l | sort -nr"
   },
   "devDependencies": {
     "rollup": "^2.75.0",

@@ -3,12 +3,6 @@
 import { notify } from "./util/notifications";
 import { chooseRandom } from "./util/utils";
 
-export const startingDreamSequence = [
-    "dreamed of white sails flying in the salty air.",
-    "dreamed of stormy seas and raging tides.",
-    "dreamed of a bottomless abyss, rays of light fading away."
-];
-
 const dreams = [
     "a blue sea, waves gently lapping against the shore",
     "dark and stormy nights",

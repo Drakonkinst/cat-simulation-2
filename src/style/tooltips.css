@@ -38,6 +38,7 @@
 	display: none !important;
 }
 
+/*
 .disabled:hover > .tooltip {
 	display: none;
 }
@@ -45,6 +46,7 @@
 .event .button.disabled:hover > div.tooltip {
 	display: block;
 }
+*/
 
 /* Dark Mode */
 

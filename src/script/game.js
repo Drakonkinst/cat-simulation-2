@@ -12,10 +12,15 @@ import * as $SM from "./state.js";
 import { InputState, setAreaDark, setDark } from "./util/input.js";
 
 function InitState() {
-    $SM.set("world.day", 1);
-    $SM.set("options.lights", 0);
-    $SM.set("progress.start", 0);
-    $SM.set("progress.unlocked.town", false);
+    
+    if(localStorage.hasOwnProperty(GameInfo.saveKey)) {
+        let savedState = JSON.parse(localStorage.getItem(GameInfo.saveKey));
+        $SM.load(savedState);
+    } else {
+        $SM.set("world.day", 1);
+        $SM.set("options.lights", 0);
+        $SM.set("progress.unlocked.town", false);
+    }
 }
 
 function InitAreas() {
@@ -95,7 +100,7 @@ function showOptions() {
                     buttons: {
                         "yes": {
                             click: function () {
-                                notify("nothing here yet.");
+                                restart();
                             },
                             nextScene: "end"
                         },
@@ -156,12 +161,19 @@ function setLightMode(index) {
     }
 }
 
+function restart() {
+    // TODO: Put a fancy fade-out here later
+    localStorage.removeItem(GameInfo.saveKey);
+    location.reload();
+}
+
 function Init() {
     Logger.setLevel(GameInfo.options.loggerLevel);
 
-    InitState();
     InitFooter();
     InitNotifications();
+    
+    InitState();
     //InitEvents();
     InitAreas();
 
@@ -170,6 +182,7 @@ function Init() {
     // TODO: Slow unlock of rooms/locations
     // TODO: World + weather
     // TODO: Saving? What parts should be saved?
+    $SM.startAutoSave();
 
     // Debug function
     window.getState = getState;

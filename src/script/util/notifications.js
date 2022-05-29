@@ -1,4 +1,3 @@
-import * as $SM from "../state.js";
 import { InputState } from "./input.js";
 import { Logger } from "./logger.js";
 
