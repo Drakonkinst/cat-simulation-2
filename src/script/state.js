@@ -47,7 +47,7 @@ export function get(stateName, numericOnly) {
     
     for(let i = 0; i < path.length; ++i) {
         next = path[i];
-        if(typeof obj !== "object" || obj.hasOwnProperty(next)) {
+        if(typeof obj === "object" && !obj.hasOwnProperty(next)) {
             return numericOnly ? 0 : null;
         }
         obj = obj[next];

@@ -17,7 +17,8 @@ def minify_css():
         "notifications.css",
         "tooltips.css",
         "equipment.css",
-        "events.css"
+        "events.css",
+        "footer.css"
     ]
     css_text = ""
     for filename in files:

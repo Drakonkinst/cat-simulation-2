@@ -124,7 +124,7 @@ export function randomEvent() {
     task.scheduleNext();
 }
 
-function startEvent(event) {
+export function startEvent(event) {
     InputState.keyLock = true;
     InputState.navigation = false;
     eventStack.push(event);
@@ -274,9 +274,14 @@ function drawButtons(buttons, parent) {
     for(let id in buttons) {
         if(buttons.hasOwnProperty(id)) {
             let info = buttons[id];
+            let text = info.text;
+            if(text == null) {
+                // Default to button ID
+                text = id;
+            }
             let button = new Button({
                 id: id,
-                text: info.text,
+                text: text,
                 tooltip: info.tooltip || null,
                 onClick: function() {
                     buttonClick(this);
@@ -351,6 +356,9 @@ function buttonClick(button) {
             // End event
             button.setDisabled(true);
             endEvent();
+        } else if(typeof info.nextScene === "string") {
+            // Single possibility
+            loadScene(info.nextScene);
         } else {
             // Choose next scene based on weighted probability
             let nextScene = chooseWeightedMap(info.nextScene);
