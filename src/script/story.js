@@ -7,6 +7,7 @@ import { setAreaDark } from "./util/input.js";
 import { Logger } from "./util/logger.js";
 import { Tooltip } from "./util/tooltip.js";
 import { createSleepButton } from "./house.js";
+import { startEvent } from "./util/events.js";
 
 /**
  * Scripted events, part of the narrative
@@ -23,7 +24,7 @@ const INTRO_DREAMS = [
     "dreamed of a bottomless abyss, rays of light fading away."
 ];
 const INTRO_NUDGES = [
-    "something purrs.",
+    "something purrs softly.",
     "feather-soft whiskers brush past.",
     "purring grows more insistent."
 ];
@@ -56,6 +57,8 @@ function createIntroButton(introRoom, house) {
             if(introStep < INTRO_DREAMS.length) {
                 let msg = INTRO_DREAMS[introStep];
                 notify(msg);
+            } else {
+                notify("the world beckons, and dreams start to fade.");
             }
         },
         onFinish: () => {
@@ -111,12 +114,12 @@ function introNudge() {
 function wakeUp(introRoom, house) {
     house.setName("A Dark Room", true);
     createSleepButton().appendTo(introRoom.element)
-        .setTooltip(new Tooltip().addText("slept enough for today."))
+        .setTooltip(new Tooltip().addText("slept enough for now."))
         .setDisabled(true);
     setAreaDark(true);
     clearAll();
 
-    notify("the room is cold and dark.");
+    notify("the room is cold.");
     setTimeout(() => {
         spawnFirstCat();
         // Event -> "say hello"
@@ -127,7 +130,26 @@ function wakeUp(introRoom, house) {
 }
 
 function spawnFirstCat() {
-    notify("an inquisitive face peeks up above the bedsheets.");
+    notify("a curious face peeks up between the bedsheets.");
+    startEvent({
+        title: "A Curious Face",
+        scenes: {
+            "start": {
+                text: [
+                    "a strange creature looks up at you.",
+                ],
+                buttons: {
+                    "hello": {
+                        text: "say hello",
+                        click: () => {
+                            notify("nothing here yet.");
+                        },
+                        nextScene: "end"
+                    }
+                }
+            }
+        }
+    });
     // TODO: Can try to click on the cat but "can't make out anything in the dark"
     // Turn lights on -> cat runs off -> explore -> find other room
     // Lights can be turned on/off instantly, warning not to do it too much

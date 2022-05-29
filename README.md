@@ -1,2 +1,5 @@
-# cat-simulation-2
-A minimalist text game about taking care of cats
+# A Cat Simulation
+
+a minimalist text game about taking care of cats
+
+[**play here**](https://drakonkinst.github.io/cat-simulation-2/)

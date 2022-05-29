@@ -22,8 +22,15 @@ let blinkInterval = null;
 let task = null;
 let eventPool = [];
 let eventStack = [];
+let uniqueEvents = new Set();
+let eventsParent = null;
 
 export function Init() {
+    // Make sure this is always the last child in the wrapper
+    eventsParent = $("<div>").addClass("events").appendTo(".wrapper");
+}
+
+export function startRandomEvents() {
     // TODO: Create event pool
     eventPool.push(
         {   //Noises Outside - gain stuff
@@ -124,10 +131,22 @@ export function randomEvent() {
     task.scheduleNext();
 }
 
-export function startEvent(event) {
+export function startEvent(event, force = false) {
+    // Can't open some events more than once
+    if(event.id != null) {
+        if(uniqueEvents.has(event.id)) {
+            return;
+        }
+        uniqueEvents.add(event.id);
+    }
+    
     InputState.keyLock = true;
     InputState.navigation = false;
-    eventStack.push(event);
+    if(force) {
+        eventStack.unshift(event);
+    } else {
+        eventStack.push(event);
+    }
 
     // Create event panel
     event.eventPanel = $("<div>")
@@ -147,18 +166,29 @@ export function startEvent(event) {
 
     let startScene = getScene("start", event);
     if(startScene.notification != null) {
+        // Notification for the entire event
         notify(startScene.notification);
     }
 
-    if(eventStack.length <= 1) {
+    if(eventStack.length <= 1 || force) {
         initEvent();
     }
+}
+
+export function setCurrentEventTitle(title) {
+    let eventPanel = getEventPanel();
+    $("div.event-title", eventPanel).text(title);
 }
 
 function initEvent() {
     loadScene("start", true);
     let eventPanel = getEventPanel();
-    $(".wrapper").append(eventPanel);
+    eventPanel.appendTo(eventsParent);
+    
+    // Hide all event panels
+    $(".event-panel").css("opacity", 0.0);
+    
+    // Show only this event
     eventPanel.animate({"opacity": 1.0}, PANEL_FADE, "linear");
     
     let currentSceneInfo = getScene(activeScene);
@@ -170,12 +200,16 @@ function initEvent() {
 
 function endEvent() {
     let eventPanel = getEventPanel();
-    eventPanel.animate({"opacity": 0}, PANEL_FADE, "linear", function() {
+    eventPanel.animate({"opacity": 0}, PANEL_FADE, "linear", () => {
         eventPanel.remove();
         let activeEvent = getActiveEvent();
         delete activeEvent.eventPanel;
         delete activeEvent.context;
         eventStack.shift();
+        
+        if(activeEvent.id != null) {
+            uniqueEvents.delete(activeEvent.id);
+        }
         
         if(eventStack.length > 0) {
             // Start next event on stack

@@ -1,7 +1,7 @@
 import { Cat } from "./cat.js";
 import { GameInfo } from "./info.js";
 import { Button } from "./util/button.js";
-import { Init as InitEvents, randomEvent, startEvent } from "./util/events.js";
+import { Init as InitEvents, randomEvent, setCurrentEventTitle, startEvent } from "./util/events.js";
 import { Logger } from "./util/logger.js"
 import { Init as InitNotifications, notify, quickNotify } from "./util/notifications.js";
 import { House, Init as InitHouse } from "./house.js"
@@ -12,7 +12,7 @@ import * as $SM from "./state.js";
 import { InputState, setAreaDark, setDark } from "./util/input.js";
 
 function InitState() {
-    
+
     if(localStorage.hasOwnProperty(GameInfo.saveKey)) {
         let savedState = JSON.parse(localStorage.getItem(GameInfo.saveKey));
         $SM.load(savedState);
@@ -27,7 +27,7 @@ function InitAreas() {
     InitAreaContainer();
     InitHouse();
     InitTown();
-    
+
     // TODO Make sure to call this whenever a new area is added
     // which might be just here tbh
     updateSliderWidth();
@@ -62,14 +62,20 @@ function InitFooter() {
 function showOptions() {
     startEvent({
         title: "Options",
+        id: "options",
+        getContext: () => {
+            let lightMode = $SM.get("options.lights", 0);
+            return lightMode;
+        },
         scenes: {
-            "start": () => {
-                $("div.event-title").text("Options");
-                let lightMode = $SM.get("options.lights", 0);
+            "start": (lightMode) => {
                 return {
                     text: [
                         "set to heart's desire."
                     ],
+                    onLoad: () => {
+                        setCurrentEventTitle("Options");
+                    },
                     buttons: {
                         "lights": {
                             text: getLightModeName(lightMode),
@@ -91,51 +97,51 @@ function showOptions() {
                     }
                 };
             },
-            "confirm_restart": () => {
-                $("div.event-title").text("Restart?");
-                return {
-                    text: [
-                        "restart the game?"
-                    ],
-                    buttons: {
-                        "yes": {
-                            click: function () {
-                                restart();
-                            },
-                            nextScene: "end"
+            "confirm_restart": {
+                text: [
+                    "restart the game?"
+                ],
+                onLoad: () => {
+                    setCurrentEventTitle("Restart?");
+                },
+                buttons: {
+                    "yes": {
+                        click: function () {
+                            restart();
                         },
-                        "no": {
-                            nextScene: "start"
-                        }
+                        nextScene: "end"
+                    },
+                    "no": {
+                        nextScene: "start"
                     }
-                };
+                }
             },
-            "export_import": () => {
-                $("div.event-title").text("Export / Import");
-                return {
-                    text: [
-                        "export or import save data",
-                        "for backing up or migrating computers"
-                    ],
-                    buttons: {
-                        "export": {
-                            click: function () {
-                                notify("nothing here yet.");
-                            }
-                        },
-                        "import": {
-                            click: function () {
-                                notify("nothing here yet.");
-                            }
-                        },
-                        "cancel": {
-                            nextScene: "start"
+            "export_import": {
+                text: [
+                    "export or import save data",
+                    "for backing up or migrating computers"
+                ],
+                onLoad: () => {
+                    setCurrentEventTitle("Export / Import");
+                },
+                buttons: {
+                    "export": {
+                        click: function () {
+                            notify("nothing here yet.");
                         }
+                    },
+                    "import": {
+                        click: function () {
+                            notify("nothing here yet.");
+                        }
+                    },
+                    "cancel": {
+                        nextScene: "start"
                     }
-                };
+                }
             }
         }
-    });
+    }, true);
 }
 
 function getLightModeName(index) {
@@ -172,9 +178,9 @@ function Init() {
 
     InitFooter();
     InitNotifications();
-    
+
     InitState();
-    //InitEvents();
+    InitEvents();
     InitAreas();
 
     // TODO: Equipment visualization (based on room)
@@ -214,9 +220,9 @@ function getState() {
 $(function () {
     // Let's do this!
     //try {
-        Launch();
+    Launch();
     //} catch(err) {
-        //Logger.severe("Error: " + err.message);
-        //console.trace(err);
+    //Logger.severe("Error: " + err.message);
+    //console.trace(err);
     //}
 });
