@@ -167,6 +167,7 @@ function Init() {
     // TODO: Equipment visualization (based on room)
     // TODO: House stuff
     // TODO: Slow unlock of rooms/locations
+    // TODO: World + weather
     // TODO: Saving? What parts should be saved?
 
     // Debug function
@@ -189,7 +190,7 @@ function Launch() {
             quickNotify("Hello, world!");
             randomEvent();
         }
-    }).appendTo($(".location.location_bedroom"));
+    });//.appendTo($(".location.location_bedroom"));
 }
 
 function getState() {
@@ -198,10 +199,10 @@ function getState() {
 
 $(function () {
     // Let's do this!
-    try {
+    //try {
         Launch();
-    } catch(err) {
-        Logger.severe("Error: " + err.message);
-        console.trace(err);
-    }
+    //} catch(err) {
+        //Logger.severe("Error: " + err.message);
+        //console.trace(err);
+    //}
 });

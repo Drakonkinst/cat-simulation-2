@@ -43,10 +43,18 @@ export class Location {
         return this;
     }
     
+    setName(name, fadeIn = false) {
+        this.name = name;
+        this.buttonElement.text(this.name);
+        if(fadeIn) {
+            this.buttonElement.hide().fadeIn(LOCATION_FADE_IN, "linear");
+        }
+    }
+    
     setVisible(flag) {
         this.isVisible = flag;
         if(this.element == null || this.buttonElement == null) {
-            return;
+            return this;
         }
         if(flag) {
             this.buttonElement.fadeIn(LOCATION_FADE_IN, "linear");
@@ -54,6 +62,7 @@ export class Location {
             // No animation since this only happens upon load
             this.buttonElement.hide();
         }
+        return this;
     }
 }
 
@@ -71,6 +80,7 @@ export class Area {
     Init() {
         // Set visibility now that elements are created
         for(let location of this.locations) {
+            location.onLoad();
             location.setVisible(location.isVisible);
         }
         this.goToLocation(0);
@@ -79,11 +89,6 @@ export class Area {
     onArrival(diff) {
         // TODO
         printQueue(this.id);
-    }
-    
-    setName(name) {
-        this.name = name;
-        this.buttonElement.text(this.name);
     }
     
     addLocation(location) {
@@ -140,12 +145,36 @@ export class Area {
                 })
                 .appendTo(selectMenu);
             location.element = $("<div>").addClass("location location_" + location.id)
-                .text(this.id + " " + location.id)
+                //.text(this.id + " " + location.id)
                 .appendTo(slider);
         }
 
         this.element = elem;
         return elem;
+    }
+    
+    setName(name, fadeIn = false) {
+        this.name = name;
+        this.buttonElement.text(this.name);
+        if(fadeIn) {
+            this.buttonElement.hide().fadeIn(LOCATION_FADE_IN, "linear");
+        }
+    }
+    
+    setVisible(flag) {
+        this.isVisible = flag;
+        if(this.element == null || this.buttonElement == null) {
+            return this;
+        }
+        if(flag) {
+            this.buttonElement.fadeIn(AREA_FADE_IN, "linear");
+            this.element.show();
+        } else {
+            // No animation since this only happens upon load
+            this.buttonElement.hide();
+            this.element.hide();
+        }
+        return this;
     }
 }
 

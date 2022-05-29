@@ -14,4 +14,5 @@ export function Init() {
     addArea(Town);
 
     Town.Init();
+    Town.setVisible(false);
 }

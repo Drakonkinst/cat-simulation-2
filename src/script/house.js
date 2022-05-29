@@ -1,4 +1,6 @@
 import { addArea, Area, Location } from "./area.js";
+import { Button } from "./util/button.js";
+import { Logger } from "./util/logger.js";
 import { notify } from "./util/notifications.js";
 
 export class Room extends Location {
@@ -8,20 +10,24 @@ export class Room extends Location {
     }
 }
 
-export const House = new Area("house", "A Lonely Room");
+export const House = new Area("house", "");
 
 export function Init() {
+    const Bedroom = new Room("bedroom", "").onLoad((room) => {
+        new Button({
+            id: "start_game",
+            text: "wake up",
+            cooldown: 3000,
+            onClick: () => {
+                House.setName("A Lonely Room", true);
+                //Bedroom.setName("Bedroom", true);
+            }
+        }).appendTo(room.element);
+    });
     
     House.addLocations(
-        new Room("bedroom", "Bedroom").onLoad(function () {
-
-        }),
-        new Room("hallway", "Hallway")
-            .onLoad(function () {
-
-            }).onArrival(function () {
-                notify("welcome to hallway.")
-            }),//.setVisible(false),
+        Bedroom,
+        new Room("hallway", "Hallway").setVisible(false)
     )
     addArea(House);
     
