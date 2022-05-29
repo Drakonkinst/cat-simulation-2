@@ -1,0 +1,85 @@
+.area-panel {
+    position: relative;
+    float: left;
+    width: 700px;
+}
+
+.area-slider {
+    position: absolute;
+}
+
+.location {
+    height: 624px;
+    position: relative;
+}
+
+.location-slider {
+    position: absolute;
+}
+
+.location-content {
+    position: relative;
+    overflow: hidden;
+    height: 624px;
+}
+
+.area-select {
+    padding-bottom: 20px;
+    height: 20px;
+}
+
+.area-button {
+    font-size: 18px;
+    cursor: pointer;
+    float: left;
+    border-left: 1px solid black;
+    margin-left: 10px;
+    padding-left: 10px;
+}
+
+.area-button:hover {
+    text-decoration: underline;
+}
+
+.area-button:first-child {
+    border-left: none;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+.area-button.selected,
+.area-button.selected:hover {
+    cursor: default;
+    text-decoration: underline;
+}
+
+.location-select {
+    position: relative;
+    padding-bottom: 20px;
+    height: 16px;
+}
+
+.location-button {
+    float: left;
+    font-size: 17px;
+    cursor: pointer;
+    border-left: 1px solid black;
+    margin-left: 10px;
+    padding-left: 10px;
+}
+
+.location-button:hover {
+    text-decoration: underline;
+}
+
+.location-button:first-child {
+    border-left: none;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+.location-button.selected,
+.location-button.selected:hover {
+    cursor: default;
+    text-decoration: underline;
+}

@@ -6,10 +6,12 @@ function eventPassThrough() {
     return true;
 }
 
+// All InputState info is not persistent
 export const InputState = {
     keyLock: false,
     navigation: true,
-    darkMode: false
+    darkMode: false,
+    currentArea: null
 };
 
 export function enableSelection() {

@@ -32,6 +32,24 @@ body {
 	background-color: transparent;
 }
 
+.content {
+	position: relative;
+	overflow: hidden;
+	height: 700px;
+}
+
+.outer-slider {
+	position: absolute;
+}
+
+.outer-slider > div {
+	position: relative;
+	float: left;
+	width: 700px;
+	height: 700px;
+	overflow: hidden;
+}
+
 /* Dark Mode */
 
 .dark {

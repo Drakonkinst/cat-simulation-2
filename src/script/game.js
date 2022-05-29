@@ -4,6 +4,9 @@ import { Button } from "./util/button.js";
 import { Init as InitEvents, randomEvent, startEvent } from "./util/events.js";
 import { Logger } from "./util/logger.js"
 import { Init as InitNotifications, notify, quickNotify } from "./util/notifications.js";
+import { House, Init as InitHouse } from "./house.js"
+import { Init as InitTown } from "./town.js"
+import { Init as InitAreaContainer, travelTo, updateSliderWidth } from "./area.js"
 import { Tooltip } from "./util/tooltip.js";
 import * as $SM from "./state.js";
 import { setDark } from "./util/input.js";
@@ -14,9 +17,13 @@ function InitState() {
 }
 
 function InitAreas() {
-    let mainElement = $(".main").empty();
-    $("<div>").addClass("area-select").appendTo(mainElement);
-    $("<div>").addClass("area-slider").appendTo(mainElement);
+    InitAreaContainer();
+    InitHouse();
+    InitTown();
+    
+    // TODO Make sure to call this whenever a new area is added
+    // which might be just here tbh
+    updateSliderWidth();
 }
 
 function InitFooter() {
@@ -49,8 +56,9 @@ function showOptions() {
     startEvent({
         title: "Options",
         scenes: {
-            "start": function() {
-                let lightMode = $SM.get("options.lights");
+            "start": () => {
+                $("div.event-title").text("Options");
+                let lightMode = $SM.get("options.lights", true);
                 return {
                     text: [
                         "set to heart's desire."
@@ -58,59 +66,81 @@ function showOptions() {
                     buttons: {
                         "lights": {
                             text: getLightModeName(lightMode),
-                            click: function() {
+                            click: function () {
                                 lightMode = (lightMode + 1) % 3;
                                 setLightMode(lightMode);
                                 $(".button.button_lights").text(getLightModeName(lightMode));
                             }
                         },
                         "save": {
-                            click: function() {
-                                notify("nothing here yet.");
-                            }
+                            nextScene: "export_import"
                         },
                         "restart": {
                             nextScene: "confirm_restart"
-                        },
-                        "load": {
-                            click: function () {
-                                notify("nothing here yet.");
-                            }
                         },
                         "close": {
                             nextScene: "end"
                         }
                     }
-                }
+                };
             },
-            "confirm_restart": {
-                text: [
-                    "restart the game?"
-                ],
-                buttons: {
-                    "yes": {
-                        click: function() {
-                            notify("nothing here yet.");
+            "confirm_restart": () => {
+                $("div.event-title").text("Restart?");
+                return {
+                    text: [
+                        "restart the game?"
+                    ],
+                    buttons: {
+                        "yes": {
+                            click: function () {
+                                notify("nothing here yet.");
+                            },
+                            nextScene: "end"
                         },
-                        nextScene: "end"
-                    },
-                    "no": {
-                        nextScene: "start"
+                        "no": {
+                            nextScene: "start"
+                        }
                     }
-                }
+                };
+            },
+            "export_import": () => {
+                $("div.event-title").text("Export / Import");
+                return {
+                    text: [
+                        "export or import save data",
+                        "for backing up or migrating computers"
+                    ],
+                    buttons: {
+                        "export": {
+                            click: function () {
+                                notify("nothing here yet.");
+                            }
+                        },
+                        "import": {
+                            click: function () {
+                                notify("nothing here yet.");
+                            }
+                        },
+                        "cancel": {
+                            nextScene: "start"
+                        }
+                    }
+                };
             }
         }
-    })
+    });
 }
 
 function getLightModeName(index) {
+    let text = "lights: ";
     if(index == 0) {
-        return "always light";
+        text += "on";
     } else if(index == 1) {
-        return "always dark";
+        text += "off";
     } else if(index == 2) {
-        return "adaptive";
+        text += "adaptive";
     }
+    return text;
 }
 
 function setLightMode(index) {
@@ -127,24 +157,27 @@ function setLightMode(index) {
 
 function Init() {
     Logger.setLevel(GameInfo.options.loggerLevel);
-    
+
     InitState();
-    InitAreas();
     InitFooter();
     InitNotifications();
     InitEvents();
-    
-    // TODO: Tab navigation and rooms
-    // TODO: Equipment visualization
+    InitAreas();
+
+    // TODO: Equipment visualization (based on room)
+    // TODO: House stuff
+    // TODO: Slow unlock of rooms/locations
     // TODO: Saving? What parts should be saved?
-    
+
     // Debug function
     window.getState = getState;
 }
 
 function Launch() {
     Init();
-    
+
+    travelTo("house");
+
     // Test button
     new Button({
         text: "Hello, world!",
@@ -156,14 +189,14 @@ function Launch() {
             quickNotify("Hello, world!");
             randomEvent();
         }
-    }).appendTo($(".main"));
+    }).appendTo($(".location.location_bedroom"));
 }
 
 function getState() {
     return $SM.getState();
 }
 
-$(function() {
+$(function () {
     // Let's do this!
     try {
         Launch();

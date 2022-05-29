@@ -1,4 +1,5 @@
 import * as $SM from "../state.js";
+import { InputState } from "./input.js";
 import { Logger } from "./logger.js";
 
 const MESSAGE_FADE_IN = 500;
@@ -51,7 +52,7 @@ export function lint(text) {
 export function notify(message = "", areaId = null, noQueue) {
     message = lint(message);
 
-    if(areaId != null && $SM.get("currentArea") != areaId) {
+    if(areaId != null && InputState.currentArea != areaId) {
         if(!noQueue) {
             // Create key in notifyQueue if it does not exist
             if(!notifyQueue.hasOwnProperty(areaId)) {
