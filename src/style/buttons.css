@@ -46,10 +46,10 @@ div.button.disabled:hover {
 }
 
 .dark div.button .cooldown {
-	background-color: #444444;
+	background-color: #666666;
 }
 
 .dark div.button.disabled, .dark div.button.disabled:hover {
-	color: #444444;
-	border-color: #444444;
+	color: #666666;
+	border-color: #666666;
 }

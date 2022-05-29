@@ -38,9 +38,8 @@
 	display: none !important;
 }
 
-/*
 .disabled:hover > .tooltip {
-	display: none;
+	border-color: #b2b2b2;
 }
 
 .event .button.disabled:hover > div.tooltip {
@@ -54,4 +53,8 @@
 	background-color: #272823;
 	border: 1px solid #eeeeee;
 	box-shadow: -1px 3px 2px #111111;
+}
+
+.dark .disabled:hover>.tooltip {
+	border-color: #666666;
 }
