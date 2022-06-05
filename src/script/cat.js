@@ -1,5 +1,5 @@
 import { setDark } from "./util/input";
-import { chance, chooseRandom } from "./util/utils";
+import { chance, chooseRandom, generateUID, randInt } from "./util/utils";
 
 const BREEDS = {
     "american shorthair": {
@@ -62,7 +62,36 @@ const NEUTRAL_NAMES = [
     "chaser", "pouncer", "buttercup"
 ];
 
+const TRAITS = [
+    "lazy",
+    "playful",
+    "loud",
+    "quiet",
+    "friendly",
+    "jumpy",
+    "calm",
+    "antisocial",
+    "curious",
+    "active",
+    "chaotic",
+    "purring",
+    "affectionate",
+    "intelligent",
+    "shy",
+    "suspicious",
+    "gentle",
+    "aggressive",
+    "vigilant",
+    "hunter",
+    "social",
+    "dominant"
+];
+const CHANCE_TENDENCY = 0.7;
+const CHANCE_RARE = 0.02;
+const MAX_TRAITS = 5;
 const NEEDS = [ "food", "water", "litterbox", "play", "affection", "nap" ];
+const WEIGHTS = [ "thin", "underweight", "average", "overweight", "obese" ];
+const WEIGHT_INTERVAL = 100;
 
 function getNeedIndex(name) {
     let index = NEEDS.indexOf(name);
@@ -72,50 +101,110 @@ function getNeedIndex(name) {
     return index;
 }
 
+function generateTraits(tendencies) {
+    let traits = [];
+    for(let i = 0; i < TRAITS.length; ++i) {
+        let traitName = TRAITS[i];
+        if(tendencies.includes(traitName)) {
+            if(chance(CHANCE_TENDENCY)) {
+                traits.push(i);
+            }
+        } else if(chance(CHANCE_RARE)) {
+            traits.push(i);
+        }
+    }
+    while(traits.length > MAX_TRAITS) {
+        let randomIndex = randInt(0, traits.length);
+        traits.splice(randomIndex, 1);
+    }
+    return traits;
+}
+
+function traitsArrToSet(traitsArr) {
+    let set = new Set();
+    for(let traitIndex of traitsArr) {
+        set.add(TRAITS[traitIndex]);
+    }
+    return set;
+}
+
 // Have parameters for names etc.
 export function generateRandomCat({
         name = null,
-        isFemale = chance(0.5)} = {}) {
-    if(name == null) {
+        generateName = true,
+        isFemale = chance(0.5),
+        breed = chooseRandom(BREED_NAMES),
+        happiness = randInt(0, 101),
+        trust = randInt(0, 21),
+        weightClass = 2} = {}) {
+    let id = generateUID();
+    // Generate name
+    if(name == null && generateName) {
         let namePool = (isFemale ? FEMALE_NAMES : MALE_NAMES).concat(NEUTRAL_NAMES);
         name = chooseRandom(namePool);
     }
-    return new Cat(name, isFemale);
+    
+    // Generate breed info
+    let breedInfo = BREEDS[breed];
+    let coatColor = chooseRandom(breedInfo.coatColors);
+    let coatTexture = chooseRandom(breedInfo.coatTextures);
+    let eyeColor = chooseRandom(breedInfo.coatTextures);
+    
+    // Generate traits
+    let traits = generateTraits(breedInfo.tendencies);
+    
+    // Other attributes
+    let weight = weightClass * WEIGHT_INTERVAL + randInt(0, WEIGHT_INTERVAL);
+    
+    return new Cat(id, name, isFemale, breed,
+                coatColor, coatTexture, eyeColor,
+                traits,
+                null, null, null, null, null, null,
+                happiness, trust, weight);
 }
 
 export class Cat {
-    constructor(name, isFemale, breed,
+    constructor(id, name, isFemale, breed,
                 coatColor, coatTexture, eyeColor,
                 traits = [],
                 food, water, litterbox, play, affection, nap,
-                happiness, trust) {
+                happiness, trust, weight) {
         
-        // Data that needs to be saved once or rarely
-        this.info = {
+        this.id = id;
+        
+        // Cat data
+        this.data = {
+            // Updated rarely
             name,
             isFemale,
             breed,
             coatColor,
             coatTexture,
             eyeColor,
-            traits
-        };
-        
-        // Data that can be updated often
-        this.data = {
+            traits,
+            
+            // Updated often
             needs: [food, water, litterbox, play, affection, nap],
             happiness,
-            trust
+            trust,
+            weight: weight
         };
         
         // Convert to Set for easier access
-        this.traits = new Set(traits);
+        this.traits = traitsArrToSet(this.data.traits);
         
         // Remember rooms
         this.lastFoodBowl = null;
         this.lastWaterBowl = null;
         this.lastLitterbox = null;
         this.lastNapSpot = null;
+        
+        // States
+        this.isSleeping = null;
+        this.currentNeed = null;
+        
+        // Weight should not be pounds/metric, but rather a tier
+        // thin, underweight, average, overweight, obese
     }
     
     getHighestNeed() {
