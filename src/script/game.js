@@ -80,13 +80,17 @@ function showOptions() {
                         "lights": {
                             text: getLightModeName(lightMode),
                             click: function () {
-                                lightMode = (lightMode + 1) % 3;
-                                setLightMode(lightMode);
-                                $(".button.button_lights").text(getLightModeName(lightMode));
+                                let currentLightMode = $SM.get("options.lights", 0);
+                                currentLightMode = (currentLightMode + 1) % 3;
+                                setLightMode(currentLightMode);
+                                $(".button.button_lights").text(getLightModeName(currentLightMode));
                             }
                         },
                         "save": {
-                            nextScene: "export_import"
+                            nextScene: "export_import",
+                            click: () => {
+                                $SM.save();
+                            }
                         },
                         "restart": {
                             nextScene: "confirm_restart"
@@ -191,7 +195,7 @@ function Init() {
     $SM.startAutoSave();
 
     // Debug function
-    window.getState = getState;
+    window.$SM = $SM;
 }
 
 function Launch() {

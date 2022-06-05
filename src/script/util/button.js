@@ -79,7 +79,7 @@ export class Button {
         savedCooldowns = JSON.parse(str);
     }
     
-    setText() {
+    setText(text) {
         this.element.text(text);
         return this;
     }

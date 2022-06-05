@@ -6,7 +6,7 @@ import { clearAll, notify } from "./util/notifications.js";
 import { setAreaDark } from "./util/input.js";
 import { Logger } from "./util/logger.js";
 import { Tooltip } from "./util/tooltip.js";
-import { createSleepButton } from "./house.js";
+import { createLightsButton, createSleepButton } from "./house.js";
 import { startEvent } from "./util/events.js";
 
 /**
@@ -26,7 +26,8 @@ const INTRO_DREAMS = [
 const INTRO_NUDGES = [
     "something purrs softly.",
     "feather-soft whiskers brush past.",
-    "purring grows more insistent."
+    "purring grows more insistent.",
+    "something paws gently."
 ];
 
 // 0 = nothing, 1 = dream 1, 2 = dream 2, 3 = dream 3, 4 = wake up
@@ -116,6 +117,10 @@ function wakeUp(introRoom, house) {
     createSleepButton().appendTo(introRoom.element)
         .setTooltip(new Tooltip().addText("slept enough for now."))
         .setDisabled(true);
+    let lightButton = createLightsButton(introRoom).appendTo(introRoom.element);
+    lightButton.element.one("click", () => {
+        house.setName("A Lonely Room");
+    });
     setAreaDark(true);
     clearAll();
 
@@ -136,7 +141,7 @@ function spawnFirstCat() {
         scenes: {
             "start": {
                 text: [
-                    "a strange creature looks up at you.",
+                    "a strange creature looks up at you inquisitively.",
                 ],
                 buttons: {
                     "hello": {
