@@ -1,6 +1,6 @@
-import { GameInfo } from "../info.js";
-import { Logger } from "./logger.js";
-import { round } from "./utils.js";
+import { GameInfo } from "../info";
+import { Logger } from "./logger";
+import { round } from "./utils";
 
 /**
  * Button class that represents a clickable button in the window.

@@ -1,5 +1,5 @@
-import { addArea, Area, Location } from "./area.js";
-import { notify } from "./util/notifications.js";
+import { addArea, Area, Location } from "./area";
+import { notify } from "./util/notifications";
 
 export const Town = new Area("town", "A Quiet Town");
 

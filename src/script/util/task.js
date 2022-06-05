@@ -1,6 +1,6 @@
-import { GameInfo } from "../info.js";
-import { Logger } from "./logger.js";
-import { randNum, round } from "./utils.js";
+import { GameInfo } from "../info";
+import { Logger } from "./logger";
+import { randNum, round } from "./utils";
 
 /**
  * Task class that builds a reschedulable Task that can have a random interval.

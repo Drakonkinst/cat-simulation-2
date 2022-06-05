@@ -1,4 +1,4 @@
-import { LoggerLevel } from "./util/logger.js";
+import { LoggerLevel } from "./util/logger";
 
 export const GameInfo = {
     version: "2.000",

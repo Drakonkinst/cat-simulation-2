@@ -1,15 +1,15 @@
-import { Cat } from "./cat.js";
-import { GameInfo } from "./info.js";
-import { Button } from "./util/button.js";
-import { Init as InitEvents, randomEvent, setCurrentEventTitle, startEvent } from "./util/events.js";
+import { Cat } from "./cat";
+import { GameInfo } from "./info";
+import { Button } from "./util/button";
+import { Init as InitEvents, randomEvent, setCurrentEventTitle, startEvent } from "./util/events";
 import { Logger } from "./util/logger.js"
-import { Init as InitNotifications, notify, quickNotify } from "./util/notifications.js";
+import { Init as InitNotifications, notify, quickNotify } from "./util/notifications";
 import { House, Init as InitHouse } from "./house.js"
 import { Init as InitTown } from "./town.js"
 import { Init as InitAreaContainer, travelTo, updateSliderWidth } from "./area.js"
-import { Tooltip } from "./util/tooltip.js";
-import * as $SM from "./state.js";
-import { InputState, setAreaDark, setDark } from "./util/input.js";
+import { Tooltip } from "./util/tooltip";
+import * as $SM from "./state";
+import { InputState, setAreaDark, setDark } from "./util/input";
 
 function InitState() {
 

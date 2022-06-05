@@ -1,10 +1,11 @@
-import { addArea, Area, Location } from "./area.js";
-import { Button } from "./util/button.js";
-import { Logger } from "./util/logger.js";
-import { notify } from "./util/notifications.js";
-import * as $SM from "./state.js";
-import { startIntro } from "./story.js";
-import { setAreaDark } from "./util/input.js";
+import { addArea, Area, Location } from "./area";
+import { Button } from "./util/button";
+import { Logger } from "./util/logger";
+import { notify } from "./util/notifications";
+import { generateRandomCat } from "./cat";
+import * as $SM from "./state";
+import { startIntro } from "./story";
+import { setAreaDark } from "./util/input";
 
 export class Room extends Location {
     constructor(id, name) {

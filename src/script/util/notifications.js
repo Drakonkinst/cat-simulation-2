@@ -1,5 +1,5 @@
-import { InputState } from "./input.js";
-import { Logger } from "./logger.js";
+import { InputState } from "./input";
+import { Logger } from "./logger";
 
 const MESSAGE_FADE_IN = 500;
 const MESSAGE_FADE_OUT = 3000;

@@ -1,13 +1,13 @@
-import { randomDream } from "./dream.js";
-import * as $SM from "./state.js";
-import { Button } from "./util/button.js";
-import { chooseRandom, randNum } from "./util/utils.js";
-import { clearAll, notify } from "./util/notifications.js";
-import { setAreaDark } from "./util/input.js";
-import { Logger } from "./util/logger.js";
-import { Tooltip } from "./util/tooltip.js";
-import { createLightsButton, createSleepButton } from "./house.js";
-import { startEvent } from "./util/events.js";
+import { randomDream } from "./dream";
+import * as $SM from "./state";
+import { Button } from "./util/button";
+import { chooseRandom, randNum } from "./util/utils";
+import { clearAll, notify } from "./util/notifications";
+import { setAreaDark } from "./util/input";
+import { Logger } from "./util/logger";
+import { Tooltip } from "./util/tooltip";
+import { createLightsButton, createSleepButton } from "./house";
+import { startEvent } from "./util/events";
 
 /**
  * Scripted events, part of the narrative
@@ -60,6 +60,7 @@ function createIntroButton(introRoom, house) {
                 notify(msg);
             } else {
                 notify("the world beckons, and dreams start to fade.");
+                clearAll();
             }
         },
         onFinish: () => {

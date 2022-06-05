@@ -1,6 +1,6 @@
-import { GameInfo } from "./info.js";
-import { Logger } from "./util/logger.js";
-import { quickNotify } from "./util/notifications.js";
+import { GameInfo } from "./info";
+import { Logger } from "./util/logger";
+import { quickNotify } from "./util/notifications";
 
 const AUTOSAVE_INTERVAL = 60000;
 

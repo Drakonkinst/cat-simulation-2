@@ -2,12 +2,12 @@
  * Events engine that manages and runs events.
  */
 
-import { Button } from "./button.js";
-import { disableSelection, enableSelection, InputState } from "./input.js";
-import { Logger } from "./logger.js";
-import { lint, notify } from "./notifications.js";
-import { Task } from "./task.js";
-import { chooseWeightedArr, chooseWeightedMap } from "./utils.js";
+import { Button } from "./button";
+import { disableSelection, enableSelection, InputState } from "./input";
+import { Logger } from "./logger";
+import { lint, notify } from "./notifications";
+import { Task } from "./task";
+import { chooseWeightedArr, chooseWeightedMap } from "./utils";
 import * as $SM from "./../state.js"
 
 const EVENT_INTERVAL_MIN = 3;

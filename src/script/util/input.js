@@ -1,4 +1,4 @@
-import * as $SM from "./../state.js";
+import * as $SM from "./../state";
 
 function eventNullifier(e) {
     return $(e.target).hasClass("menu-btn");
