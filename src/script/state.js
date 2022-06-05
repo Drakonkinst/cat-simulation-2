@@ -1,6 +1,7 @@
 import { GameInfo } from "./info";
 import { Logger } from "./util/logger";
 import { quickNotify } from "./util/notifications";
+import LZString from "./util/lz-string";
 
 const AUTOSAVE_INTERVAL = 60000;
 
@@ -52,7 +53,8 @@ export function startAutoSave() {
 
 export function save(force = false) {
     if(needsSave || force) {
-        localStorage.setItem(GameInfo.saveKey, JSON.stringify(GameState));
+        let data = LZString.compressToUTF16(JSON.stringify(GameState));
+        localStorage.setItem(GameInfo.saveKey, data);
         needsSave = false;
         quickNotify("saved.");
         Logger.finer("Saved.");
@@ -64,6 +66,11 @@ export function load(state) {
     save();
     Logger.finer("Loaded state.");
     Logger.finer(GameState);
+}
+
+export function loadFromLocalStorage() {
+    let savedState = JSON.parse(LZString.decompressFromUTF16(localStorage.getItem(GameInfo.saveKey)));
+    load(savedState);
 }
 
 export function remove(stateName) {
@@ -123,6 +130,14 @@ export function add(stateName, value) {
 // Debug function, do NOT use to manipulate state directly
 export function getState() {
     return GameState;
+}
+
+// Debug function to analyze size of localStorage, in bytes
+// https://stackoverflow.com/questions/4391575/how-to-find-the-size-of-localstorage
+export function printSize() {
+    save();
+    Logger.info("Compressed Size: " + (new Blob(Object.values(localStorage.getItem(GameInfo.saveKey))).size / 1000) + "kb");
+    Logger.info("Uncompressed Size: " + (new Blob([JSON.stringify(GameState)]).size / 1000) + "kb");
 }
 
 /* Inventory */

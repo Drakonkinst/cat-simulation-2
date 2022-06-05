@@ -14,8 +14,7 @@ import { InputState, setAreaDark, setDark } from "./util/input";
 function InitState() {
 
     if(localStorage.hasOwnProperty(GameInfo.saveKey)) {
-        let savedState = JSON.parse(localStorage.getItem(GameInfo.saveKey));
-        $SM.load(savedState);
+        $SM.loadFromLocalStorage();
     } else {
         $SM.set("world.day", 1);
         $SM.set("options.lights", 0);
