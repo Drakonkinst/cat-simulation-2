@@ -51,6 +51,13 @@ export function Init() {
         if(!isIntroFinished) {
             startIntro(House);
         }
+        new Button({
+            text: "cat",
+            onClick: function() {
+                let cat = generateRandomCat();
+                Logger.info(cat);
+            }
+        }).appendTo(room.element);
     });
 
     House.addLocations(
