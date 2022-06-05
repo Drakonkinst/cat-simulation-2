@@ -16,6 +16,15 @@ export class Room extends Location {
 
 export const House = new Area("house", "");
 
+const cats = [];
+
+export function addCat(cat) {
+    cats.push(cat);
+    
+    // Link cat data to state info
+    $SM.set("house.cats[" + cat.id + "]", cat.data);
+}
+
 export function createSleepButton() {
     const sleepButton = new Button({
         id: "sleep",
@@ -55,6 +64,7 @@ export function Init() {
             text: "cat",
             onClick: function() {
                 let cat = generateRandomCat();
+                addCat(cat);
                 Logger.info(cat);
             }
         }).appendTo(room.element);
