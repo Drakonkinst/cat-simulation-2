@@ -200,7 +200,7 @@ function initEvent() {
 
 function endEvent() {
     let eventPanel = getEventPanel();
-    eventPanel.animate({"opacity": 0}, PANEL_FADE, "linear", () => {
+    eventPanel.animate({"opacity": 0.0}, PANEL_FADE, "linear", () => {
         eventPanel.remove();
         let activeEvent = getActiveEvent();
         delete activeEvent.eventPanel;

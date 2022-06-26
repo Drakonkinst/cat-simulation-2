@@ -15,10 +15,10 @@ function endsWithPunctuation(str) {
 
 function printMessage(message) {
     $("<div>").addClass("notification")
-        .css("opacity", 0)
+        .css("opacity", 0.0)
         .text(message)
         .prependTo(notificationsElem)
-        .animate({ "opacity": 1 }, MESSAGE_FADE_IN, "linear", function () {
+        .animate({ "opacity": 1.0 }, MESSAGE_FADE_IN, "linear", function () {
             // Remove invisible messages
             clearHidden();
         })
@@ -81,14 +81,14 @@ export function quickNotify(message = "") {
     quickNotifyElem
         .stop()
         .text(message)
-        .css("opacity", 1)
-        .animate({ "opacity": 0 }, MESSAGE_FADE_OUT, "linear");
+        .css("opacity", 1.0)
+        .animate({ "opacity": 0.0 }, MESSAGE_FADE_OUT, "linear");
 }
 
 export function clearAll(duration = MESSAGE_FADE_OUT) {
     $(".notification")
         .stop()
-        .animate({ "opacity": 0 }, duration, "linear", function () {
+        .animate({ "opacity": 0.0 }, duration, "linear", function () {
             $(this).remove();
         });
 }

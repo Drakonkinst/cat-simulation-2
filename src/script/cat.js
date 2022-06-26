@@ -129,6 +129,7 @@ function traitsArrToSet(traitsArr) {
 }
 
 // Have parameters for names etc.
+// TODO: Validate ID and name to make sure it does not conflict w/any other cats in the house
 export function generateRandomCat({
         name = null,
         generateName = true,
@@ -159,7 +160,7 @@ export function generateRandomCat({
     return new Cat(id, name, isFemale, breed,
                 coatColor, coatTexture, eyeColor,
                 traits,
-                null, null, null, null, null, null,
+                0, 0, 0, 0, 0, 0,
                 happiness, trust, weight);
 }
 
@@ -187,7 +188,7 @@ export class Cat {
             needs: [food, water, litterbox, play, affection, nap],
             happiness,
             trust,
-            weight: weight
+            weight
         };
         
         // Convert to Set for easier access
@@ -237,6 +238,4 @@ export class Cat {
         let index = getNeedIndex(name);
         return this.data.needs[index];
     }
-    
-    
 }
