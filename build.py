@@ -26,7 +26,7 @@ def minify_css():
         filepath = os.path.join("./src/style", filename)
         with open(filepath, 'r') as readfile:
             css_text += readfile.read()
-    response = requests.post("http://cssminifier.com/raw", data={"input": css_text})
+    response = requests.post("https://www.toptal.com/developers/cssminifier/api/raw", data={"input": css_text})
     minified_css = response.text
     with open("docs/style.css", 'w') as outfile:
         outfile.write(minified_css)
