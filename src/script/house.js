@@ -1,4 +1,4 @@
-import { addArea, Area, Location } from "./area";
+import { addArea, Area } from "./area";
 import { Button } from "./util/button";
 import { Logger } from "./util/logger";
 import { notify } from "./util/notifications";
@@ -6,18 +6,13 @@ import { generateRandomCat } from "./cat";
 import * as $SM from "./state";
 import { startIntro } from "./story";
 import { setAreaDark } from "./util/input";
-
-export class Room extends Location {
-    constructor(id, name) {
-        super(id, name);
-        // TODO: Buildings and cat info
-    }
-}
+import { Room } from "./room";
 
 export const House = new Area("house", "");
 
 const cats = [];
 
+// TODO: load cats from localstorage on Init
 export function addCat(cat) {
     cats.push(cat);
     

@@ -19,7 +19,8 @@ def minify_css():
         "equipment.css",
         "events.css",
         "footer.css",
-        "area.css"
+        "area.css",
+        "house.css"
     ]
     css_text = ""
     for filename in files:

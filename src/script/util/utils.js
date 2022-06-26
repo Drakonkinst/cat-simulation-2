@@ -105,3 +105,7 @@ export function generateUID() {
     secondPart = ("000" + secondPart.toString(36)).slice(-3);
     return firstPart + secondPart;
 }
+
+export function toCSSClass(str) {
+    return str.toLowerCase().replaceAll(' ', '-');
+}

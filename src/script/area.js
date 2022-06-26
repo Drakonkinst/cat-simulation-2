@@ -21,6 +21,23 @@ export class Location {
         this.onArrivalCallback = function() {};
     }
     
+    createElement(area, selectMenu, slider) {
+        this.buttonElement = $("<div>").addClass("location-button location-button_" + this.id)
+            .text(this.name)
+            .on("click", function () {
+                area.goToLocation(i);
+            })
+            .appendTo(selectMenu);
+        this.element = $("<div>").addClass("location location_" + this.id)
+            //.text(this.id + " " + location.id)
+            .appendTo(slider);
+        this.onCreateElement();
+    }
+    
+    onCreateElement() {
+        // Empty
+    }
+    
     onLoad(callback) {
         if(callback == null) {
             // Call function
@@ -139,22 +156,12 @@ export class Area {
         }
 
         let elem = $("<div>").addClass("area-panel area-panel_" + this.id);
-        let selectMenu = $("<div>").addClass("location-select").appendTo(elem);
         let contentContainer = $("<div>").addClass("location-content").appendTo(elem);
+        let selectMenu = $("<div>").addClass("location-select").appendTo(elem);
         let slider = $("<div>").addClass("location-slider").appendTo(contentContainer);
-        let self = this;
 
         for(let i = 0; i < this.locations.length; ++i) {
-            let location = this.locations[i];
-            location.buttonElement = $("<div>").addClass("location-button location-button_" + location.id)
-                .text(location.name)
-                .on("click", function () {
-                    self.goToLocation(i);
-                })
-                .appendTo(selectMenu);
-            location.element = $("<div>").addClass("location location_" + location.id)
-                //.text(this.id + " " + location.id)
-                .appendTo(slider);
+            this.locations[i].createElement(this, selectMenu, slider);
         }
 
         this.element = elem;

@@ -199,6 +199,10 @@ export class Cat {
         this.lastWaterBowl = null;
         this.lastLitterbox = null;
         this.lastNapSpot = null;
+        this.currentRoom = null;
+        
+        // Display icon
+        this.element = null;
         
         // States
         this.isSleeping = null;
