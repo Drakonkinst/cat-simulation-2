@@ -41,12 +41,8 @@ export class Display {
     collides(x, y) {
         for(let box of this.boxes) {
             if(box.solid) {
-                Logger.fine("checking");
                 if(box.intersects(x, y)) {
-                    Logger.fine("INTERSECTS");
                     return true;
-                } else {
-                    Logger.fine("NO INTERSECT");
                 }
             }
             
@@ -95,8 +91,8 @@ export class Box {
     }
     
     intersects(x, y) {
-        Logger.fine("Checking " + x + ", " + y);
-        Logger.fine(this.x + " " + this.width + "\n" + this.y + " " + this.height);
+        //Logger.fine("Checking " + x + ", " + y);
+        //Logger.fine(this.x + " " + this.width + "\n" + this.y + " " + this.height);
         return this.x <= x && x <= this.x + this.width
             && this.y <= y && y <= this.y + this.height;
     }

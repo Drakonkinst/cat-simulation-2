@@ -66,7 +66,7 @@ export function Init() {
                 
                 let cat2 = generateRandomCat();
                 addCat(cat2);
-                room.onCatArrival(cat2, 3, 0);
+                room.onCatArrival(cat2, 5, 0);
                 Logger.info(cat2.id + " CAT2");
             }
         }).appendTo(room.element);
@@ -79,7 +79,6 @@ export function Init() {
         room.display.addBox(new Box({x: 1, y: 0, width: 0, height: 1}));
         room.display.addBox(new Box({x: 11, y: 0, width: 0, height: 1}));
         
-        /*
         // Chair
         room.display.addBox(new Box({x: 32, y: 0, width: 0, height: 4}));
         room.display.addBox(new Box({x: 32, y: 0, width: 2, height: 2, surface: true}));
@@ -91,7 +90,6 @@ export function Init() {
         
         // Door
         room.display.addDoor(20);
-        //*/
         /*
         room.display.addBox(new Box({x: 0, y: 0}));
         room.display.addBox(new Box({x: 1, y: 0}));

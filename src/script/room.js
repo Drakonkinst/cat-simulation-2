@@ -29,6 +29,7 @@ export class Room extends Location {
         let className = "cat_" + cat.id;
         cat.icon = $("<span>")
             .addClass("cat " + className)
+            .text("*")   // Create text as first element
             .on("click", () => {
                 Logger.info("Clicked on " + cat.data.name + " (" + cat.id + ")");
         });

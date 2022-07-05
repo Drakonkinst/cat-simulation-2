@@ -254,7 +254,7 @@ export class Cat {
     
     // Tasks
     
-    // Movement
+    // Movement (Low level operations)
     
     move(x, y) {
         if(this.icon == null) {
@@ -270,11 +270,17 @@ export class Cat {
         if(this.currentRoom.display.collides(x, y)) {
             Logger.warn("Cat collided with something!");
         }
+        
+        // Text is always first element
         if(this.currentRoom.display.collides(x, y + 1)) {
-            this.icon.text(CAT_ICON_SMALL);
+            this.setIconText(CAT_ICON_SMALL);
         } else {
-            this.icon.text(CAT_ICON);
+            this.setIconText(CAT_ICON);
         }
+    }
+    
+    setIconText(text) {
+        this.icon[0].childNodes[0].nodeValue = text;
     }
     
     
