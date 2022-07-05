@@ -7,7 +7,7 @@ import * as $SM from "./state";
 import { startIntro } from "./story";
 import { setAreaDark } from "./util/input";
 import { Room } from "./room";
-import { Box } from "./util/display";
+import { Box } from "./display";
 
 export const House = new Area("house", "");
 
@@ -61,25 +61,37 @@ export function Init() {
             onClick: function() {
                 let cat = generateRandomCat();
                 addCat(cat);
-                Logger.info(cat);
+                room.onCatArrival(cat, 2, 3);
+                Logger.info(cat.id + " CAT1");
+                
+                let cat2 = generateRandomCat();
+                addCat(cat2);
+                room.onCatArrival(cat2, 3, 0);
+                Logger.info(cat2.id + " CAT2");
             }
         }).appendTo(room.element);
         
         // Bed
-        room.display.addBox(new Box({x: 0, y: 0, width: 10, height: 3}));
-        room.display.addBox(new Box({x: 0, y: 0, width: 3, height: 3}));
+        room.display.addBox(new Box({ x: 1, y: 1, width: 10, height: 2, solid: true, surface: true
+}));
+        room.display.addBox(new Box({ x: 1, y: 1, width: 3, height: 2, solid: true, surface: true
+}));
+        room.display.addBox(new Box({x: 1, y: 0, width: 0, height: 1}));
+        room.display.addBox(new Box({x: 11, y: 0, width: 0, height: 1}));
         
+        /*
         // Chair
         room.display.addBox(new Box({x: 32, y: 0, width: 0, height: 4}));
-        room.display.addBox(new Box({x: 32, y: 0, width: 2, height: 2}));
+        room.display.addBox(new Box({x: 32, y: 0, width: 2, height: 2, surface: true}));
         
         // Table
-        room.display.addBox(new Box({x: 36, y: 2, width: 5, height: 1}));
+        room.display.addBox(new Box({x: 36, y: 2, width: 5, height: 1, solid: true, surface: true}));
         room.display.addBox(new Box({x: 36, y: 0, width: 0, height: 2}));
         room.display.addBox(new Box({x: 41, y: 0, width: 0, height: 2}));
         
         // Door
-        room.display.addBox(new Box({x: 20, y: 0, width: 4, height: 8}));
+        room.display.addDoor(20);
+        //*/
         /*
         room.display.addBox(new Box({x: 0, y: 0}));
         room.display.addBox(new Box({x: 1, y: 0}));

@@ -1,6 +1,11 @@
+import { BOX_SCALE, BOX_UNIT } from "./display";
 import { setDark } from "./util/input";
+import { Logger } from "./util/logger";
 import { chance, chooseRandom, generateUID, randInt } from "./util/utils";
 
+const CAT_ICON = '@';
+const CAT_ICON_SMALL = 'α';
+const ICON_OFFSET_Y = -3;
 const BREEDS = {
     "american shorthair": {
         tendencies: [ "quiet", "friendly", "playful", "calm" ],
@@ -207,10 +212,14 @@ export class Cat {
         // States
         this.isSleeping = null;
         this.currentNeed = null;
+        this.x = 0;
+        this.y = 0;
         
         // Weight should not be pounds/metric, but rather a tier
         // thin, underweight, average, overweight, obese
     }
+    
+    // Objective AI
     
     getHighestNeed() {
         let highestNeed = null;
@@ -242,4 +251,31 @@ export class Cat {
         let index = getNeedIndex(name);
         return this.data.needs[index];
     }
+    
+    // Tasks
+    
+    // Movement
+    
+    move(x, y) {
+        if(this.icon == null) {
+            return;
+        }
+        
+        this.x = x;
+        this.y = y;
+        this.icon.css({
+            "left": x * BOX_UNIT * BOX_SCALE,
+            "bottom": y * BOX_UNIT * BOX_SCALE + ICON_OFFSET_Y
+        });
+        if(this.currentRoom.display.collides(x, y)) {
+            Logger.warn("Cat collided with something!");
+        }
+        if(this.currentRoom.display.collides(x, y + 1)) {
+            this.icon.text(CAT_ICON_SMALL);
+        } else {
+            this.icon.text(CAT_ICON);
+        }
+    }
+    
+    
 }

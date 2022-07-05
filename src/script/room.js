@@ -1,5 +1,5 @@
 import { Location } from "./area";
-import { Display } from "./util/display";
+import { Display } from "./display";
 import { Logger } from "./util/logger";
 import { Tooltip } from "./util/tooltip";
 
@@ -21,24 +21,24 @@ export class Room extends Location {
         this.display = new Display(this.element);
     }
 
-    onCatArrival(cat) {
+    onCatArrival(cat, x = 0, y = 0) {
         this.cats.push(cat);
-        cat.currentRoom = id;
+        cat.currentRoom = this;
         
         // Create icon
         let className = "cat_" + cat.id;
-        let catIcon = $("<span>")
+        cat.icon = $("<span>")
             .addClass("cat " + className)
-            .text("@")
             .on("click", () => {
-                Logger.info("Clicked on " + cat.name + " (" + cat.id + ")");
+                Logger.info("Clicked on " + cat.data.name + " (" + cat.id + ")");
         });
-        let tooltip = new Tooltip("bottom right")
-            .addText(cat.name)
-            .appendTo(catIcon);
-        catIcon.css("opacity", 0.0)
+        let tooltip = new Tooltip("top left")
+            .addText(cat.data.name)
+            .appendTo(cat.icon);
+        cat.icon.css("opacity", 0.0)
             .animate({ "opacity": 1.0 }, CAT_FADE, "linear")
             .appendTo(this.display.element);
+        cat.move(x, y);
     }
 
     onCatLeave(cat) {
@@ -52,15 +52,15 @@ export class Room extends Location {
         
         // Fade out icon
         let className = "cat_" + cat.id;
-        let catIcon = this.display.element.find('.' + className);
-        if(catIcon.length) {
+        if(cat.icon != null) {
             let pseudoIcon = $("<span>")
                 .addClass("cat")
                 .text("@")
                 .css("opacity", 1.0);
-            catIcon.replaceWith(pseudoIcon.animate({ "opacity": 0.0 }, CAT_FADE, "linear", () => {
+            cat.icon.replaceWith(pseudoIcon.animate({ "opacity": 0.0 }, CAT_FADE, "linear", () => {
                 pseudoIcon.remove();
             }));
+            cat.icon = null;
         }
     }
 }

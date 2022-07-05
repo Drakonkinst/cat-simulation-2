@@ -4,7 +4,7 @@
 
 .display {
     position: absolute;
-    overflow: hidden;
+    /*overflow: hidden;*/
     bottom: 200px;
     left: 0;
     height: 150px;
