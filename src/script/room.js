@@ -1,4 +1,5 @@
 import { Location } from "./area";
+import { Display } from "./util/display";
 import { Logger } from "./util/logger";
 import { Tooltip } from "./util/tooltip";
 
@@ -17,7 +18,7 @@ export class Room extends Location {
     onCreateElement() {
         Logger.info("CREATED");
         $("<div>").addClass("room-controls").appendTo(this.element);
-        this.displayElement = $("<div>").addClass("room-display").appendTo(this.element);
+        this.display = new Display(this.element);
     }
 
     onCatArrival(cat) {
@@ -37,7 +38,7 @@ export class Room extends Location {
             .appendTo(catIcon);
         catIcon.css("opacity", 0.0)
             .animate({ "opacity": 1.0 }, CAT_FADE, "linear")
-            .appendTo(this.displayElement);
+            .appendTo(this.display.element);
     }
 
     onCatLeave(cat) {
@@ -51,7 +52,7 @@ export class Room extends Location {
         
         // Fade out icon
         let className = "cat_" + cat.id;
-        let catIcon = this.displayElement.find('.' + className);
+        let catIcon = this.display.element.find('.' + className);
         if(catIcon.length) {
             let pseudoIcon = $("<span>")
                 .addClass("cat")

@@ -1,0 +1,33 @@
+/*.cats {
+    position: relative;
+}*/
+
+.display {
+    position: absolute;
+    overflow: hidden;
+    bottom: 200px;
+    left: 0;
+    height: 150px;
+    width: 400px;
+    border: 1px solid black;
+}
+
+.box {
+    position: absolute;
+    border: 1px solid black;
+}
+
+.cat {
+    position: absolute;
+    cursor: pointer;
+}
+
+.cat:hover {
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.cat .tooltip {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 400;
+}
