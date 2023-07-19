@@ -1,0 +1,83 @@
+/* Base */
+html, body {
+	height: 100%;
+}
+
+div {
+	display: block;
+}
+
+body {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 16px;
+	font-weight: normal;
+	line-height: normal;
+	letter-spacing: normal;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.ascii {
+	font-family: 'Courier New', Courier, monospace;
+	white-space: pre;
+}
+
+/* Notifications */
+.notifications {
+	height: 700px;
+	width: 200px;
+	position: absolute;
+	overflow: hidden;
+	top: 20px;
+	left: 0px;
+	margin-bottom: 10px;
+}
+
+.notify-gradient {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	background-color: white;
+	background: -webkit-linear-gradient(
+		rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%
+	);
+	background: linear-gradient(
+		rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%
+	);
+	filter: alpha(
+		Opacity=0, FinishOpacity=100, Style=1, StartX=0, StartY=0, FinishX=0, FinishY=500
+	);
+}
+
+.notification {
+	margin-bottom: 10px;
+}
+
+/* Room Display */
+.room-display {
+	position: relative;
+	margin-top: 50px;
+	margin-left: 50px;
+	border: 1px solid black;
+	width: 200px;
+	height: 200px;
+}
+
+/* Cat Display */
+.cat {
+	position: absolute;
+	font-weight: 500;
+	z-index: 1;
+	font-size: 14px;
+}
+
+/* https://digipiph.com/blog/creating-sprite-character-movement-javascript-and-jquery-ver-10
+*/
+.cat:hover {
+	font-weight: 700;
+	cursor: pointer;
+	/*text-decoration: underline;*/
+}
